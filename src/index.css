@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    --color-primary: #ffb400;
+    --color-secondary: #000000;
+    --color-buttons: var(--color-primary);
+    --color-bg-opacity: 1;
+    --color-background: rgb(17 17 17 / var(--color-bg-opacity));
+    --color-border: #2b2a2a;
+    --color-typography: #ffffff;
+    --color-typography-muted: #2b2a2a;
+    --color-active-text: #ffffff;
+    --color-nav-pills-bg: #2b2a2a;
+  }
+
+  @import "styles/themes/dark.css";
+  @import "styles/themes/light.css";
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+

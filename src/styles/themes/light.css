@@ -1,0 +1,8 @@
+html[data-theme="light"] {
+    --color-primary: #72b626;
+    --color-secondary: #ffffff;
+    --color-buttons: var(--color-primary);
+    --color-background: var(--color-secondary);
+    --color-typography: #666666;
+    --color-active-text: #ffffff;
+}

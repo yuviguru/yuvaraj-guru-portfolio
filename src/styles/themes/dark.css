@@ -1,0 +1,8 @@
+html[data-theme="dark"] {
+    --color-primary: #ffb400;
+    --color-secondary: #000000;
+    --color-buttons: var(--color-primary);
+    --color-background: var(--color-secondary);
+    --color-typography: #ffffff;
+    --color-active-text: #ffffff;
+}
