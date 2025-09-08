@@ -15,7 +15,7 @@ module.exports = {
       activeText: 'var(--color-active-text)',
       navPillsBg: 'var(--color-nav-pills-bg)',
       borderLight: 'var(--color-border)',
-
+      bgLight: 'var(--color-bg-gray)',
     }
   },
   plugins: [],

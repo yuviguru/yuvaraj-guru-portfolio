@@ -18,7 +18,7 @@ export const useTranslations = () => {
         };
 
         loadTranslations();
-    }, [language]);
+    }, [language, translations]);
 
     return translations;
 };

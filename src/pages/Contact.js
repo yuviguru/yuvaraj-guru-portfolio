@@ -89,7 +89,7 @@ export default function Contact() {
                             {
                                 socialIcons.map((icon, index) => (
                                     <li key={index}>
-                                        <a target="_blank" href={icon.link} className="flex w-11 h-11 items-center justify-center bg-mutedText rounded-full p-2 text-activeText transition duration-300 hover:bg-primary">
+                                        <a rel="noreferrer" target="_blank" href={icon.link} className="flex w-11 h-11 items-center justify-center bg-mutedText rounded-full p-2 text-activeText transition duration-300 hover:bg-primary">
                                             <FontAwesomeIcon className="" icon={icon.icon} size="lg" />
                                         </a>
                                     </li>

@@ -14,6 +14,7 @@
     --color-typography-muted: #2b2a2a;
     --color-active-text: #ffffff;
     --color-nav-pills-bg: #2b2a2a;
+    --color-bg-gray: #252525;
   }
 
   @import "styles/themes/dark.css";
