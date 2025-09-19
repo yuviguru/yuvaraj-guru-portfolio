@@ -42,7 +42,7 @@ const keyHighlights = [
     {
         textTop: "years of",
         textBottom: "experience",
-        total: "8"
+        total: "10"
     },
     {
         textTop: "Completed",
@@ -73,6 +73,9 @@ const skills = {
     laravel: 77,
     mysql: 60,
     mongodb: 40,
+    "AI Tools": 85,
+    "GitHub Copilot": 90,
+    "AI Workflows": 80,
     "Hybris/Wordpress": 55,
 
 }
@@ -118,16 +121,22 @@ const careerHistory = [
 function PersonalInfo({ title, details }) {
     return (
         <>
-            <h3 className="uppercase text-2xl pb-6 text-typography font-bold">{title}</h3>
-            <div className="flex justify-between">
-                <div className="basis-1/2 space-y-5 text-typography ">
+            <h3 className="uppercase text-xl sm:text-2xl pb-4 sm:pb-6 text-typography font-bold">{title}</h3>
+            <div className="flex flex-col sm:flex-row lg:justify-between gap-4 sm:gap-6 lg:gap-0">
+                <div className="sm:basis-1/2 lg:basis-1/2 space-y-3 sm:space-y-5 text-typography">
                     {Object.entries(details.left).map(([key, value]) => (
-                        <div key={key}><span className="opacity-80">{key} </span><span className="font-semibold">{value}</span></div>
+                        <div key={key} className="text-base sm:text-sm md:text-base">
+                            <span className="opacity-80">{key} </span>
+                            <span className="font-semibold">{value}</span>
+                        </div>
                     ))}
                 </div>
-                <div className="basis-1/2 space-y-5 text-typography ">
+                <div className="sm:basis-1/2 lg:basis-1/2 space-y-3 sm:space-y-5 text-typography">
                     {Object.entries(details.right).map(([key, value]) => (
-                        <div key={key}><span className="opacity-80">{key} </span><span className="font-semibold">{value}</span></div>
+                        <div key={key} className="text-base sm:text-sm md:text-base">
+                            <span className="opacity-80">{key} </span>
+                            <span className="font-semibold">{value}</span>
+                        </div>
                     ))}
                 </div>
             </div>
@@ -136,10 +145,10 @@ function PersonalInfo({ title, details }) {
 }
 const CircularProgressBar = ({ percentage, label }) => {
     return (
-        <div className="w-1/4 mb-12">
-            <div className="relative w-28 h-28 mx-auto">
+        <div className="w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/6 mb-8 sm:mb-12 px-2">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 mx-auto">
                 {/* Percentage Label */}
-                <span className="absolute inset-0 flex items-center justify-center text-2xl font-semibold text-typography z-10">
+                <span className="absolute inset-0 flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-semibold text-typography z-10">
                     {percentage}%
                 </span>
 
@@ -152,9 +161,9 @@ const CircularProgressBar = ({ percentage, label }) => {
                 ></div>
 
                 {/* Inner Circle for hollow effect */}
-                <div className="absolute top-[0.5rem] left-[0.5rem] w-24 h-24 bg-background rounded-full"></div>
+                <div className="absolute top-[0.35rem] left-[0.35rem] sm:top-[0.4rem] sm:left-[0.4rem] lg:top-[0.5rem] lg:left-[0.5rem] w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-background rounded-full"></div>
             </div>
-            <h6 className="uppercase font-sans text-center mt-6 text-typography">
+            <h6 className="uppercase font-sans text-center mt-3 sm:mt-4 lg:mt-6 text-typography text-xs sm:text-sm lg:text-base">
                 {label}
             </h6>
         </div>
@@ -168,53 +177,79 @@ export default function About() {
     return (
         <>
             <PageTitle {...props}></PageTitle>
-            <div className="flex flex-row w-10/12 mx-auto">
-                <div className="basis-1/2">
+
+            {/* Personal Info and Highlights Section */}
+            <div className="flex flex-col lg:flex-row w-11/12 lg:w-10/12 xl:w-10/12 mx-auto gap-8 lg:gap-0 px-4 sm:px-6 lg:px-0">
+                {/* Personal Information */}
+                <div className="lg:basis-1/2 lg:pr-8">
                     <PersonalInfo {...PersonalData}></PersonalInfo>
 
-                    <a className="mt-10 inline-block " href={YuvarajCV} download="Yuvaraj_Guru_CV.pdf">
-                        <Button {...DownloadCVButton}></Button>
-                    </a>
+                    <div className="mt-6 sm:mt-8 lg:mt-10">
+                        <a href={YuvarajCV} download="Yuvaraj_Guru_CV.pdf">
+                            <Button {...DownloadCVButton}></Button>
+                        </a>
+                    </div>
                 </div>
-                <div className="basis-1/2">
-                    <div className="flex flex-wrap">
+
+                {/* Key Highlights */}
+                <div className="lg:basis-1/2 lg:pl-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         {keyHighlights.map((highlight, index) => (
-                            <div className="w-1/2 px-4" key={index}>
-                                <div className="pt-5 pr-8 pb-6 pl-10 border border-borderLight rounded mb-6">
-                                    <h3 className="relative inline-block font-bold text-6xl text-primary leading-tight after:content-['+'] after:absolute after:-right-6 after:text-4xl after:font-light after:top-0">{highlight.total}</h3>
-                                    <p className="relative text-sm uppercase pl-11 font-medium text-typography">{highlight.textTop} <span className="block">{highlight.textBottom}</span></p>
+                            <div key={index}>
+                                <div className="pt-4 sm:pt-5 pr-4 sm:pr-8 pb-4 sm:pb-6 pl-[25%] sm:pl-10 border border-borderLight rounded mb-4 sm:mb-6">
+                                    <h3 className="relative inline-block font-bold text-4xl sm:text-5xl lg:text-6xl text-primary leading-tight after:content-['+'] after:absolute after:-right-4 sm:after:-right-6 after:text-2xl sm:after:text-4xl after:font-light after:top-0">
+                                        {highlight.total}
+                                    </h3>
+                                    <p className="relative text-xs sm:text-sm uppercase pl-8 sm:pl-11 font-medium text-typography mt-2">
+                                        {highlight.textTop}
+                                        <span className="block">{highlight.textBottom}</span>
+                                    </p>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
+
             <Seperator />
-            <div className="w-8/12 mx-auto">
-                <h3 className="uppercase text-2xl pb-12 text-typography font-bold text-center">my skills</h3>
-                <div className="flex w-full flex-wrap">
+
+            {/* Skills Section */}
+            <div className="w-11/12 sm:w-10/12 lg:w-8/12 mx-auto px-4 sm:px-6 lg:px-0">
+                <h3 className="uppercase text-xl sm:text-2xl pb-8 sm:pb-12 text-typography font-bold text-center">my skills</h3>
+                <div className="flex w-full flex-wrap justify-center">
                     {Object.entries(skills).map(([skill, percent]) => (
                         <CircularProgressBar percentage={percent} label={skill} key={skill} />
                     ))}
                 </div>
             </div>
+
             <Seperator />
-            <div className="w-8/12 mx-auto">
-                <h3 className="uppercase text-2xl pb-12 text-typography font-bold text-center">experience & education</h3>
-                <div className="flex flex-col sm:flex-row pb-40">
+
+            {/* Experience & Education Section */}
+            <div className="w-11/12 sm:w-10/12 lg:w-8/12 mx-auto px-4 sm:px-6 lg:px-0">
+                <h3 className="uppercase text-xl sm:text-2xl pb-8 sm:pb-12 text-typography font-bold text-center">experience & education</h3>
+                <div className="flex flex-col pb-20 sm:pb-40">
                     <div className="w-full">
                         <ul>
                             {careerHistory.map((history, index) => (
-                                <li key={index} className="relative pr-10 pl-16 mb-16 after:absolute after:top-0 after:left-5 after:bg-borderLight after:w-[1px] after:h-full" >
-                                    <div className="bg-primary w-10 h-10 absolute left-0 leading-40 text-center z-10 rounded-full text-typography content-center">
-                                        <FontAwesomeIcon icon={index === careerHistory.length - 1 ? faGraduationCap : faBriefcase} size="lg" />
+                                <li key={index} className="relative pr-4 sm:pr-10 pl-12 sm:pl-16 mb-12 sm:mb-16 after:absolute after:top-0 after:left-4 sm:after:left-5 after:bg-borderLight after:w-[1px] after:h-full">
+                                    <div className="bg-primary w-8 h-8 sm:w-10 sm:h-10 absolute left-0 leading-40 text-center z-10 rounded-full text-typography content-center">
+                                        <FontAwesomeIcon
+                                            icon={index === careerHistory.length - 1 ? faGraduationCap : faBriefcase}
+                                            size="sm"
+                                            className="sm:text-lg"
+                                        />
                                     </div>
-                                    <span className="text-typography text-xs py-1 px-6 inline-block mb-2 rounded-full font-semibold bg-mutedText opacity-80 uppercase">{history.duration}</span>
-                                    <h5 className="uppercase text-lg mt-3 mb-3 text-typography">
+                                    <span className="text-typography text-xs py-1 px-3 sm:px-6 inline-block mb-2 rounded-full font-semibold bg-mutedText opacity-80 uppercase">
+                                        {history.duration}
+                                    </span>
+                                    <h5 className="uppercase text-base sm:text-lg mt-2 sm:mt-3 mb-2 sm:mb-3 text-typography">
                                         {history.position}
-                                        <span className="opacity-80 font-semibold text-sm relative pl-7 before:absolute before:w-3 before:h-[3px] before:bg-typography before:left-2 before:top-2 before:opacity-80">{history.company}</span>
+                                        <span className="opacity-80 font-semibold text-sm relative pl-4 sm:pl-7 before:absolute before:w-2 sm:before:w-3 before:h-[2px] sm:before:h-[3px] before:bg-typography before:left-1 sm:before:left-2 before:top-2 before:opacity-80 block sm:inline mt-1 sm:mt-0">
+                                            {history.company}
+                                        </span>
                                     </h5>
-                                    <p className="text-typography text-sm">{history.description}</p>
+                                    <p className="text-typography text-sm sm:text-base leading-relaxed">{history.description}</p>
                                 </li>
                             ))}
                         </ul>

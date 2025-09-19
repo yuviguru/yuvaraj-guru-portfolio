@@ -1,5 +1,31 @@
-# Yuvaraj Guru Portfolio
-A modern, responsive portfolio showcasing my skills, projects, and experience as a software engineer. Built with cutting-edge web technologies like React, Tailwind CSS, and Node.js to demonstrate my proficiency in front-end and back-end development.
+
+## 👨‍💻 About the Developer
+
+**Yuvaraj Guru K** is a Senior Consultant at Xebia with 10 years of full-stack development experience. Based in Chennai, India, he specializes in modern web technologies including React, Vue.js, Node.js, and has a proven track record of delivering scalable solutions for global enterprises.
+
+### Key Highlights
+- **10 years** of software development experience
+- **35+ completed projects** across various domains
+- **25+ happy customers** and successful deliveries  
+- **48 freshers mentored** - passionate about knowledge sharing
+- **Current Role**: Senior Consultant at Xebia, working on loyalty programs for global retailers
+
+### Core Technologies
+- **Frontend**: React (85%), Vue.js (86%), JavaScript (88%), HTML (90%), CSS/SASS (80%)
+- **Backend**: Node.js (72%), PHP (71%), Laravel (77%)
+- **Database**: MySQL (60%), MongoDB (40%), Redis (Advanced)
+- **AI Tools**: GitHub Copilot, AI workflow integration and automation
+- **Other**: GraphQL, Keycloak, Electron, Single SPA, Micro Frontends
+
+### Specializations
+- E-commerce platforms and loyalty programs
+- AI-enhanced development workflows and productivity tools
+- Performance optimization (20% improvement track record)
+- Legacy system modernization
+- Micro frontend architecture
+- Team leadership and mentoring
+
+For detailed information about experience, skills, and career journey, see [DEVELOPER_INFO.md](./DEVELOPER_INFO.md).
 
 # Getting Started with Create React App
 

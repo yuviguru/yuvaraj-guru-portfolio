@@ -1,5 +1,5 @@
 import React from 'react';
-import profileImage from '../assets/images/side-profile-1.png';
+import profileImage from '../assets/images/yuvaraj-headshot-no-bg.png';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from '../hooks/useTranslations';
 import { Link } from "react-router-dom";
@@ -16,31 +16,44 @@ export default function Home() {
     }
 
     return (
-        <div className="relative h-screen w-full flex justify-center items-center">
-            <div className="bg-primary fixed w-full h-[200%] -rotate-12 -top-1/2 -left-[83%] block"></div>
-            <div className="flex items-center justify-center text-left mx-auto w-full h-full">
+        <div className="relative min-h-screen w-full flex justify-center items-center overflow-hidden">
+            <div className="flex items-center justify-center text-left mx-auto w-full h-full px-4 sm:px-6 lg:px-8">
+                {/* Desktop Background Image */}
                 <img
-                    className="hidden md:block fixed w-1/3 h-[calc(100vh-120px)] left-10 top-14 rounded-3xl shadow-2xl object-cover object-center bg-none"
+                    className="hidden lg:block fixed h-[calc(100vh)] left-0 object-cover object-center bg-none w-auto max-w-[45%]"
                     src={profileImage}
                     alt="Background"
                 />
-                <div className="md:ml-[33.33%] w-2/3">
-                    <div className="max-w-[550px] mx-auto">
+
+                {/* Content Container */}
+                <div className="w-full lg:ml-[35%] lg:w-2/3 xl:ml-[33.33%] xl:w-2/3">
+                    <div className="max-w-[550px] mx-auto px-4 sm:px-0">
+                        {/* Mobile Profile Image */}
                         <img
                             src={profileImage}
-                            className="md:hidden rounded-full w-[270px] h-[270px] mx-auto mb-6 border-4 border-black"
+                            className="lg:hidden rounded-full h-52 sm:h-60 md:h-[290px] mx-auto mb-6 sm:mb-8"
                             alt="Profile"
                         />
-                        <h1 className="text-5xl font-bold uppercase text-primary relative leading-tight mb-5">
+
+                        {/* Heading */}
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-bold uppercase text-primary relative leading-tight mb-4 sm:mb-5 text-center lg:text-left">
                             {translations?.heading}
-                            <span className="block text-typography">{translations?.subheading}</span>
+                            <span className="block text-typography text-2xl sm:text-3xl md:text-4xl lg:text-3xl xl:text-4xl mt-1 sm:mt-2">
+                                {translations?.subheading}
+                            </span>
                         </h1>
-                        <p className="mt-4 mb-8 text-lg text-typography leading-relaxed">
+
+                        {/* Description */}
+                        <p className="mt-4 mb-6 sm:mb-8 text-base sm:text-lg lg:text-base xl:text-lg text-typography leading-relaxed text-center lg:text-left">
                             {translations?.description}
                         </p>
-                        <Link to="/about" className="no-underline">
-                            <Button {...MoreAboutMeButton}></Button>
-                        </Link>
+
+                        {/* Button */}
+                        <div className="flex justify-center lg:justify-start">
+                            <Link to="/about" className="no-underline">
+                                <Button {...MoreAboutMeButton}></Button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
