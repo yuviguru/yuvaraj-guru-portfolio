@@ -81,15 +81,15 @@ export default function Blog() {
     return (
         <>
             <PageTitle {...props}></PageTitle>
-            <div className="max-w-7xl mx-auto">
-                <div className="flex flex-wrap">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                     {/* Blog Item 1 */}
-                    <div className="w-1/3 px-4 mb-8">
+                    <div className="mb-8">
                         <div className="h-full bg-gray-800 rounded-md text-typography">
                             <div className="rounded-t-md cursor-pointer overflow-hidden group border-b-4 border-solid border-primary">
                                 <a href="#" className="block relative overflow-hidden transition-transform duration-300">
                                     <img
-                                        className="rounded-t-md transition-transform duration-300 group-hover:scale-110"
+                                        className="rounded-t-md transition-transform duration-300 group-hover:scale-110 w-full h-48 object-cover"
                                         src={blogDefaultImg}
                                         alt="Blog Post 1"
                                     />
@@ -98,11 +98,11 @@ export default function Blog() {
                             <div className="bg-bgLight pt-5 px-6 pb-6 rounded-b-md">
                                 <a
                                     href="#"
-                                    className="leading-7 text-xl font-bold hover:text-primary transition-colors duration-300"
+                                    className="leading-7 text-xl font-bold hover:text-primary transition-colors duration-300 block"
                                 >
                                     How to Own Your Audience by Creating an Email List
                                 </a>
-                                <p className="mt-4 mb-1 font-sans">
+                                <p className="mt-4 mb-1 font-sans text-sm sm:text-base">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...
                                 </p>
                             </div>
@@ -110,12 +110,12 @@ export default function Blog() {
                     </div>
 
                     {/* Blog Item 2 */}
-                    <div className="w-1/3 px-4 mb-8">
-                        <div className="h-full bg-bgLight rounded-md  text-typography">
+                    <div className="mb-8">
+                        <div className="h-full bg-bgLight rounded-md text-typography">
                             <div className="rounded-t-md cursor-pointer overflow-hidden group border-b-4 border-solid border-primary">
                                 <a href="#" className="block relative overflow-hidden transition-transform duration-300">
                                     <img
-                                        className="rounded-t-md transition-transform duration-300 group-hover:scale-110"
+                                        className="rounded-t-md transition-transform duration-300 group-hover:scale-110 w-full h-48 object-cover"
                                         src={blogDefaultImg}
                                         alt="Blog Post 2"
                                     />
@@ -124,11 +124,11 @@ export default function Blog() {
                             <div className="bg-gray-800 pt-5 px-6 pb-6 rounded-b-md">
                                 <a
                                     href="#"
-                                    className="leading-7 text-lg font-semibold text-blue-500 hover:text-blue-700 transition-colors duration-300"
+                                    className="leading-7 text-lg font-semibold text-blue-500 hover:text-blue-700 transition-colors duration-300 block"
                                 >
                                     Top 10 Toolkits for Deep Learning in 2020
                                 </a>
-                                <p className="mt-4 mb-1 font-sans">
+                                <p className="mt-4 mb-1 font-sans text-sm sm:text-base">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...
                                 </p>
                             </div>
@@ -136,12 +136,12 @@ export default function Blog() {
                     </div>
 
                     {/* Blog Item 3 */}
-                    <div className="w-1/3 px-4 mb-8">
-                        <div className="h-full bg-bgLight rounded-md  text-typography">
+                    <div className="mb-8">
+                        <div className="h-full bg-bgLight rounded-md text-typography">
                             <div className="rounded-t-md cursor-pointer overflow-hidden group border-b-4 border-solid border-primary">
                                 <a href="#" className="block relative overflow-hidden transition-transform duration-300">
                                     <img
-                                        className="rounded-t-md transition-transform duration-300 group-hover:scale-110"
+                                        className="rounded-t-md transition-transform duration-300 group-hover:scale-110 w-full h-48 object-cover"
                                         src={blogDefaultImg}
                                         alt="Blog Post 3"
                                     />
@@ -150,11 +150,11 @@ export default function Blog() {
                             <div className="bg-gray-800 pt-5 px-6 pb-6 rounded-b-md">
                                 <a
                                     href="#"
-                                    className="leading-7 text-lg font-semibold text-blue-500 hover:text-blue-700 transition-colors duration-300"
+                                    className="leading-7 text-lg font-semibold text-blue-500 hover:text-blue-700 transition-colors duration-300 block"
                                 >
                                     Everything You Need to Know About Web Accessibility
                                 </a>
-                                <p className="mt-4 mb-1 font-sans">
+                                <p className="mt-4 mb-1 font-sans text-sm sm:text-base">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...
                                 </p>
                             </div>
@@ -163,12 +163,12 @@ export default function Blog() {
                 </div>
 
                 {/* Pagination */}
-                <nav className="mt-6">
-                    <ul className="flex justify-center">
+                <nav className="mt-6 mb-8">
+                    <ul className="flex justify-center space-x-2">
                         <li className="active">
                             <a
                                 href="#"
-                                className="w-10 h-10 transition-all duration-300 text-center flex items-center justify-center bg-blue-500 rounded-full mx-2 text-white"
+                                className="w-10 h-10 transition-all duration-300 text-center flex items-center justify-center bg-blue-500 rounded-full text-white hover:bg-blue-600"
                             >
                                 1
                             </a>
@@ -176,7 +176,7 @@ export default function Blog() {
                         <li>
                             <a
                                 href="#"
-                                className="w-10 h-10 transition-all duration-300 text-center flex items-center justify-center bg-gray-800 rounded-full mx-2 text-white"
+                                className="w-10 h-10 transition-all duration-300 text-center flex items-center justify-center bg-gray-800 rounded-full text-white hover:bg-gray-700"
                             >
                                 2
                             </a>
