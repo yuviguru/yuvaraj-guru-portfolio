@@ -1,6 +1,7 @@
-// pages/About.js
+// pages/Blog.js
 import React from 'react';
 import PageTitle from '../components/PageTitle';
+import SEO from '../components/SEO';
 import blogDefaultImg from '../assets/images/blog-default-img.jpg';
 
 const props = {
@@ -80,6 +81,13 @@ const posts = [
 export default function Blog() {
     return (
         <>
+            <SEO
+                title="Blog - Yuvaraj Guru's Insights on Full Stack Development"
+                description="Read Yuvaraj Guru's blog posts about React optimization, Vue.js best practices, Node.js development, and full-stack development insights from 10+ years of experience."
+                keywords="Yuvaraj Guru Blog, React Performance, Vue.js Tips, Node.js Development, Full Stack Development Blog, JavaScript Best Practices, Web Development Insights"
+                url="https://yuvarajguru.dev/blog"
+                type="website"
+            />
             <PageTitle {...props}></PageTitle>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">

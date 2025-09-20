@@ -1,10 +1,12 @@
-// pages/About.js
+// pages/Contact.js
 import React, { useState } from 'react';
 import PageTitle from '../components/PageTitle';
-import { faEnvelopeOpen, faPhoneSquare, faLocation, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import SEO from '../components/SEO';
+import { faEnvelopeOpen, faPhoneSquare, faLocation, faPaperPlane, faSpinner, faCheckCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import Button from '../components/Button';
+import emailjs from '@emailjs/browser';
 
 const props = {
     title: "Get in",
@@ -12,29 +14,51 @@ const props = {
     bgTitle: "Contact"
 }
 
-const FormField = ({ type = "text", name, placeholder, className }) => {
+const FormField = ({ type = "text", name, placeholder, className, value, onChange, error, fullWidth = false }) => {
     return (
-        <div className={`w-full ${type === "textarea" ? '' : 'md:w-1/3'} px-4 mb-6`}>
+        <div className={`w-full ${type === "textarea" || fullWidth ? '' : 'md:w-1/2'} px-4 mb-6`}>
             {type === "textarea" ? (
                 <textarea
                     name={name}
+                    value={value}
+                    onChange={onChange}
                     placeholder={placeholder}
-                    className={`w-full bg-mutedText text-white py-3 px-6 border border-mutedText rounded-3xl h-40 placeholder:uppercase ${className}`}
+                    className={`w-full bg-mutedText text-white py-3 px-6 border ${error ? 'border-red-500' : 'border-mutedText'} rounded-3xl h-40 placeholder:uppercase ${className} focus:outline-none focus:border-primary transition-colors`}
+                    required
                 ></textarea>
             ) : (
                 <input
                     type={type}
                     name={name}
+                    value={value}
+                    onChange={onChange}
                     placeholder={placeholder}
-                    className={`w-full bg-mutedText text-white py-3 px-6 border border-mutedText rounded-full placeholder:uppercase ${className}`}
+                    className={`w-full bg-mutedText text-white py-3 px-6 border ${error ? 'border-red-500' : 'border-mutedText'} rounded-full placeholder:uppercase ${className} focus:outline-none focus:border-primary transition-colors`}
+                    required
                 />
+            )}
+            {error && (
+                <p className="text-red-500 text-sm mt-2 px-2">{error}</p>
             )}
         </div>
     );
 };
 
 export default function Contact() {
-    const [message, setMessage] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+    });
+    const [errors, setErrors] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', null
+
+    // EmailJS Configuration
+    const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+    const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
     const socialIcons = [
         { name: 'Facebook', icon: faFacebook, link: 'https://www.facebook.com/yuviinsane/' },
@@ -46,22 +70,130 @@ export default function Contact() {
     const contactFormFields = [
         { name: "name", type: "text", placeholder: "Your Name", className: "" },
         { name: "email", type: "email", placeholder: "Your Email", className: "" },
-        { name: "subject", type: "text", placeholder: "Your Subject", className: "" },
+        { name: "subject", type: "text", placeholder: "Your Subject", className: "", fullWidth: true },
         { name: "message", type: "textarea", placeholder: "Your Message", className: "h-40 rounded-3xl" },
-    ]
+    ];
 
-    const SendButtonButton = {
-        text: "Send Message",
-        icon: faPaperPlane
-    }
+    // Form validation
+    const validateForm = () => {
+        const newErrors = {};
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission here
-        setMessage('Your message has been sent!');
+        if (!formData.name.trim()) {
+            newErrors.name = 'Name is required';
+        }
+
+        if (!formData.email.trim()) {
+            newErrors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newErrors.email = 'Email is invalid';
+        }
+
+        if (!formData.subject.trim()) {
+            newErrors.subject = 'Subject is required';
+        }
+
+        if (!formData.message.trim()) {
+            newErrors.message = 'Message is required';
+        } else if (formData.message.trim().length < 10) {
+            newErrors.message = 'Message must be at least 10 characters';
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
+
+    // Handle input changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+
+        // Clear error when user starts typing
+        if (errors[name]) {
+            setErrors(prev => ({
+                ...prev,
+                [name]: ''
+            }));
+        }
+    };
+
+    // Handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
+
+        setIsLoading(true);
+        setSubmitStatus(null);
+
+        try {
+            // Check if EmailJS is configured
+            if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+                console.warn('EmailJS not configured. Simulating email send...');
+                // Simulate API call for demo purposes
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                setSubmitStatus('success');
+                setFormData({ name: '', email: '', subject: '', message: '' });
+                return;
+            }
+
+            // Initialize EmailJS
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+
+            // Send email using EmailJS
+            const result = await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                {
+                    from_name: formData.name,
+                    from_email: formData.email,
+                    subject: formData.subject,
+                    message: formData.message,
+                    to_email: 'k.yuvarajguru@gmail.com', // Your email
+                }
+            );
+
+            console.log('Email sent successfully:', result);
+            setSubmitStatus('success');
+            setFormData({ name: '', email: '', subject: '', message: '' });
+
+        } catch (error) {
+            console.error('Error sending email:', error);
+            setSubmitStatus('error');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // Dynamic button text and icon based on state
+    const getButtonProps = () => {
+        if (isLoading) {
+            return {
+                text: "Sending...",
+                icon: faSpinner,
+                className: "animate-spin"
+            };
+        }
+        return {
+            text: "Send Message",
+            icon: faPaperPlane
+        };
+    };
+
+    const SendButton = getButtonProps();
     return (
         <>
+            <SEO
+                title="Contact Yuvaraj Guru - Get in Touch for Project Collaboration"
+                description="Contact Yuvaraj Guru for freelance projects, full-stack development opportunities, React/Vue.js consulting, or collaboration. Available for new projects and creative ideas."
+                keywords="Contact Yuvaraj Guru, Hire Full Stack Developer, React Developer for Hire, Vue.js Consultant, Freelance Developer Contact, Project Collaboration"
+                url="https://yuvarajguru.dev/contact"
+                type="website"
+            />
             <PageTitle {...props}></PageTitle>
             <div className="max-w-6xl mx-auto text-typography mt-8">
                 <div className="flex flex-col lg:flex-row">
@@ -101,17 +233,59 @@ export default function Contact() {
                     <div className="lg:w-2/3 w-full px-8">
                         <form id="contactform" className="contactform" onSubmit={handleSubmit}>
                             <div className="flex flex-wrap">
-                                {contactFormFields.map((fields, index) => (
-
-                                    <FormField {...fields} key={index} />
+                                {contactFormFields.map((field, index) => (
+                                    <FormField
+                                        key={index}
+                                        {...field}
+                                        value={formData[field.name]}
+                                        onChange={handleChange}
+                                        error={errors[field.name]}
+                                    />
                                 ))}
                                 <div className="w-full px-4">
-                                    <Button {...SendButtonButton}></Button>
+                                    <Button
+                                        {...SendButton}
+                                        disabled={isLoading}
+                                        className={`${isLoading ? 'opacity-70 cursor-not-allowed' : ''} ${SendButton.className || ''}`}
+                                    />
                                 </div>
                             </div>
-                            {message && (
+
+                            {/* Status Messages */}
+                            {submitStatus === 'success' && (
                                 <div className="w-full px-4 mt-6">
-                                    {message}
+                                    <div className="flex items-center gap-3 p-4 bg-green-900/30 border border-green-500 rounded-lg text-green-400">
+                                        <FontAwesomeIcon icon={faCheckCircle} size="lg" />
+                                        <div>
+                                            <h4 className="font-semibold">Message Sent Successfully!</h4>
+                                            <p className="text-sm opacity-90">Thank you for reaching out. I'll get back to you soon!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {submitStatus === 'error' && (
+                                <div className="w-full px-4 mt-6">
+                                    <div className="flex items-center gap-3 p-4 bg-red-900/30 border border-red-500 rounded-lg text-red-400">
+                                        <FontAwesomeIcon icon={faExclamationTriangle} size="lg" />
+                                        <div>
+                                            <h4 className="font-semibold">Failed to Send Message</h4>
+                                            <p className="text-sm opacity-90">Something went wrong. Please try again or contact me directly at k.yuvarajguru@gmail.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* EmailJS Configuration Notice (for development) */}
+                            {(!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) && (
+                                <div className="w-full px-4 mt-6">
+                                    <div className="flex items-center gap-3 p-4 bg-yellow-900/30 border border-yellow-500 rounded-lg text-yellow-400">
+                                        <FontAwesomeIcon icon={faExclamationTriangle} size="lg" />
+                                        <div>
+                                            <h4 className="font-semibold">Demo Mode</h4>
+                                            <p className="text-sm opacity-90">EmailJS not configured. Form will simulate sending for demo purposes.</p>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </form>

@@ -1,6 +1,7 @@
 // pages/About.js
 import React from 'react';
 import PageTitle from '../components/PageTitle';
+import SEO from '../components/SEO';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 import Button from '../components/Button';
@@ -176,6 +177,13 @@ export default function About() {
     }
     return (
         <>
+            <SEO
+                title="About Yuvaraj Guru - Full Stack Developer with 10+ Years Experience"
+                description="Learn about Yuvaraj Guru's 10+ years journey as a Full Stack Developer. Expertise in React, Vue.js, Node.js, e-commerce solutions, and team leadership across multiple industries."
+                keywords="About Yuvaraj Guru, Full Stack Developer Experience, React Expert, Vue.js Specialist, Software Engineer Career, Team Lead, E-commerce Developer"
+                url="https://yuvarajguru.dev/about"
+                type="profile"
+            />
             <PageTitle {...props}></PageTitle>
 
             {/* Personal Info and Highlights Section */}
