@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Portfolio from './pages/Portfolio';
 import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
 import { LanguageProvider } from './context/LanguageContext'; // Use LanguageProvider
 
@@ -23,6 +24,7 @@ function App() {
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               {/* Add more routes as needed */}
             </Routes>
           </div>
