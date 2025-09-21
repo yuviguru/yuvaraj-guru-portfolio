@@ -1,6 +1,7 @@
 // pages/About.js
 import React from 'react';
 import PageTitle from '../components/PageTitle';
+import PageLayout from '../components/PageLayout';
 import SEO from '../components/SEO';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons';
@@ -176,7 +177,7 @@ export default function About() {
         icon: faDownload
     }
     return (
-        <>
+        <PageLayout containerSize="wide">
             <SEO
                 title="About Yuvaraj Guru - Full Stack Developer with 10+ Years Experience"
                 description="Learn about Yuvaraj Guru's 10+ years journey as a Full Stack Developer. Expertise in React, Vue.js, Node.js, e-commerce solutions, and team leadership across multiple industries."
@@ -187,9 +188,9 @@ export default function About() {
             <PageTitle {...props}></PageTitle>
 
             {/* Personal Info and Highlights Section */}
-            <div className="flex flex-col lg:flex-row w-11/12 lg:w-10/12 xl:w-10/12 mx-auto gap-8 lg:gap-0 px-4 sm:px-6 lg:px-0">
+            <div className="flex flex-col lg:flex-row w-full lg:w-11/12 xl:w-10/12 mx-auto gap-8 lg:gap-12 mb-16">
                 {/* Personal Information */}
-                <div className="lg:basis-1/2 lg:pr-8">
+                <div className="lg:basis-1/2">
                     <PersonalInfo {...PersonalData}></PersonalInfo>
 
                     <div className="mt-6 sm:mt-8 lg:mt-10">
@@ -200,7 +201,7 @@ export default function About() {
                 </div>
 
                 {/* Key Highlights */}
-                <div className="lg:basis-1/2 lg:pl-8">
+                <div className="lg:basis-1/2">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         {keyHighlights.map((highlight, index) => (
                             <div key={index}>
@@ -222,7 +223,7 @@ export default function About() {
             <Seperator />
 
             {/* Skills Section */}
-            <div className="w-11/12 sm:w-10/12 lg:w-8/12 mx-auto px-4 sm:px-6 lg:px-0">
+            <div className="w-full lg:w-10/12 mx-auto mb-16">
                 <h3 className="uppercase text-xl sm:text-2xl pb-8 sm:pb-12 text-typography font-bold text-center">my skills</h3>
                 <div className="flex w-full flex-wrap justify-center">
                     {Object.entries(skills).map(([skill, percent]) => (
@@ -234,9 +235,9 @@ export default function About() {
             <Seperator />
 
             {/* Experience & Education Section */}
-            <div className="w-11/12 sm:w-10/12 lg:w-8/12 mx-auto px-4 sm:px-6 lg:px-0">
+            <div className="w-full lg:w-10/12 mx-auto mb-20">
                 <h3 className="uppercase text-xl sm:text-2xl pb-8 sm:pb-12 text-typography font-bold text-center">experience & education</h3>
-                <div className="flex flex-col pb-20 sm:pb-40">
+                <div className="flex flex-col">
                     <div className="w-full">
                         <ul>
                             {careerHistory.map((history, index) => (
@@ -264,6 +265,6 @@ export default function About() {
                     </div>
                 </div>
             </div>
-        </>
+        </PageLayout>
     );
 }

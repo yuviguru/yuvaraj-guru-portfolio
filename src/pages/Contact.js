@@ -1,6 +1,7 @@
 // pages/Contact.js
 import React, { useState } from 'react';
 import PageTitle from '../components/PageTitle';
+import PageLayout from '../components/PageLayout';
 import SEO from '../components/SEO';
 import { faEnvelopeOpen, faPhoneSquare, faLocation, faPaperPlane, faSpinner, faCheckCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -186,7 +187,7 @@ export default function Contact() {
 
     const SendButton = getButtonProps();
     return (
-        <>
+        <PageLayout>
             <SEO
                 title="Contact Yuvaraj Guru - Get in Touch for Project Collaboration"
                 description="Contact Yuvaraj Guru for freelance projects, full-stack development opportunities, React/Vue.js consulting, or collaboration. Available for new projects and creative ideas."
@@ -195,7 +196,7 @@ export default function Contact() {
                 type="website"
             />
             <PageTitle {...props}></PageTitle>
-            <div className="max-w-6xl mx-auto text-typography mt-8">
+            <div className="max-w-6xl mx-auto text-typography mt-8 pb-20">
                 <div className="flex flex-col lg:flex-row">
                     <div className="lg:w-1/3 w-full px-8">
                         <h3 className="text-2xl mb-4 font-bold uppercase">Don't be shy!</h3>
@@ -292,6 +293,6 @@ export default function Contact() {
                     </div>
                 </div>
             </div>
-        </>
+        </PageLayout>
     );
 }

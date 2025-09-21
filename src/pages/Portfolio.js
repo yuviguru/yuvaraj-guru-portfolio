@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PageTitle from '../components/PageTitle';
+import PageLayout from '../components/PageLayout';
 import SEO from '../components/SEO';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
@@ -343,7 +344,7 @@ export default function Portfolio() {
     }, [selectedCategory]);
 
     return (
-        <>
+        <PageLayout containerSize="wide">
             <SEO
                 title="Portfolio - Yuvaraj Guru's Professional Projects & Work Showcase"
                 description="Explore Yuvaraj Guru's portfolio featuring 12+ professional projects in e-commerce, platform development, performance optimization, and more. 10+ years of expertise in React, Vue.js, Node.js."
@@ -353,7 +354,7 @@ export default function Portfolio() {
             />
             <PageTitle {...props} />
 
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+            <div className="pb-20">
                 {/* Introduction */}
                 <div className="text-center mb-12">
                     <p className="text-lg text-typography max-w-4xl mx-auto leading-relaxed">
@@ -441,6 +442,6 @@ export default function Portfolio() {
                     </p>
                 </div>
             </div>
-        </>
+        </PageLayout>
     );
 }

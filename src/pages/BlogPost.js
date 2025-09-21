@@ -1,6 +1,7 @@
 // pages/BlogPost.js
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
+import PageLayout from '../components/PageLayout';
 import SEO from '../components/SEO';
 import { calculateReadingTime, formatDate } from '../utils/helper';
 import blogDefaultImg from '../assets/images/blog-default-img.jpg';
@@ -101,7 +102,7 @@ const BlogPost = () => {
     const formattedDate = formatDate(post.date);
 
     return (
-        <>
+        <PageLayout>
             <SEO
                 title={`${post.title} - Yuvaraj Guru's Blog`}
                 description={post.summary}
@@ -110,7 +111,7 @@ const BlogPost = () => {
                 type="article"
             />
 
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-4xl mx-auto py-8 pb-20">
                 {/* Back Button */}
                 <Link
                     to="/blog"
@@ -252,7 +253,7 @@ const BlogPost = () => {
                     </Link>
                 </div>
             </div>
-        </>
+        </PageLayout>
     );
 };
 

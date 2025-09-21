@@ -4,6 +4,7 @@ import NavItem from './NavItem';
 import { faHome, faUser, faBriefcase, faEnvelope, faBlog, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useLocation } from 'react-router-dom';
+import ThemeSwitcher from './ThemeSwitcher';
 
 // Mobile Navigation Item Component
 function MobileNavItem({ name, icon, link }) {
@@ -80,6 +81,10 @@ export default function NavBar() {
                                 link={item.link}
                             />
                         ))}
+                        {/* Theme Switcher for Desktop */}
+                        <li className="mt-4">
+                            <ThemeSwitcher />
+                        </li>
                     </ul>
                 </nav>
             </aside>
@@ -111,6 +116,10 @@ export default function NavBar() {
                 <aside className={`fixed top-0 right-0 z-40 h-screen w-full sm:w-72 bg-gray-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-200 text-typography transform transition-transform duration-300 ease-in-out shadow-2xl ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}>
                     <div className="p-6 pt-20">
+                        {/* Theme Switcher for Mobile */}
+                        <div className="mb-6 flex justify-center">
+                            <ThemeSwitcher />
+                        </div>
 
                         {/* Navigation Items */}
                         <nav>

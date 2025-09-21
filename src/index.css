@@ -2,7 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
+  /* Default theme variables (dark theme as default) */
   html {
     --color-primary: #ffb400;
     --color-secondary: #000000;
@@ -17,6 +22,7 @@
     --color-bg-gray: #252525;
   }
 
+  /* Import theme-specific overrides */
   @import "styles/themes/dark.css";
   @import "styles/themes/light.css";
 }

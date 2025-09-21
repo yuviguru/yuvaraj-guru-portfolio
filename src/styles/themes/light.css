@@ -1,8 +1,13 @@
 html[data-theme="light"] {
     --color-primary: #72b626;
-    --color-secondary: #ffffff;
+    --color-secondary: #f8f8f8;
     --color-buttons: var(--color-primary);
     --color-background: var(--color-secondary);
     --color-typography: #666666;
     --color-active-text: #ffffff;
+    --color-nav-pills-bg: #e5e5e5;
+    --color-border: #e0e0e0;
+    --color-bg-gray: #f8f9fa;
+    --color-typography-muted: #999999;
+    --color-bg-opacity: 1;
 }

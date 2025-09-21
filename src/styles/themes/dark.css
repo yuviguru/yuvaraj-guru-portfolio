@@ -1,8 +1,13 @@
 html[data-theme="dark"] {
     --color-primary: #ffb400;
-    --color-secondary: #000000;
+    --color-secondary: #000000e5;
     --color-buttons: var(--color-primary);
     --color-background: var(--color-secondary);
     --color-typography: #ffffff;
     --color-active-text: #ffffff;
+    --color-nav-pills-bg: #2b2a2a;
+    --color-border: #2b2a2a;
+    --color-bg-gray: #252525;
+    --color-typography-muted: #2b2a2a;
+    --color-bg-opacity: 1;
 }
