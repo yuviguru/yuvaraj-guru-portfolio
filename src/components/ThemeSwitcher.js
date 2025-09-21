@@ -4,7 +4,7 @@ import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '../context/ThemeContext';
 
 const ThemeSwitcher = ({ className = "" }) => {
-    const { theme, toggleTheme, isDark } = useTheme();
+    const { toggleTheme, isDark } = useTheme();
 
     return (
         <button
