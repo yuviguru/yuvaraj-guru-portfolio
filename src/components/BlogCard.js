@@ -1,6 +1,7 @@
 // components/BlogCard.js
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { calculateReadingTime, formatDate, truncateText } from '../utils/helper';
 import blogDefaultImg from '../assets/images/blog-default-img.jpg';
 
@@ -16,17 +17,21 @@ const BlogCard = ({ post }) => {
 
     return (
         <div className="mb-8">
-            <div className="h-full bg-bgLight rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-typography overflow-hidden group">
+            <motion.div
+                whileHover={{ y: -4 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                className="h-full bg-surface rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 text-typography overflow-hidden group border border-borderLight hover:border-primary/30"
+            >
                 {/* Image Section */}
-                <div className="rounded-t-lg cursor-pointer overflow-hidden border-b-4 border-solid border-primary">
+                <div className="rounded-t-xl cursor-pointer overflow-hidden border-b-2 border-primary/50">
                     <Link to={`/blog/${post.slug}`} className="block relative overflow-hidden">
                         <img
-                            className="rounded-t-lg transition-transform duration-300 group-hover:scale-110 w-full h-48 object-cover"
+                            className="rounded-t-xl transition-transform duration-500 group-hover:scale-110 w-full h-48 object-cover"
                             src={post.image || blogDefaultImg}
                             alt={post.title}
                             loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300"></div>
                     </Link>
                 </div>
 
@@ -35,20 +40,20 @@ const BlogCard = ({ post }) => {
                     {/* Meta Information */}
                     <div className="flex items-center text-sm opacity-70 mb-3">
                         <span className="text-typography">{formattedDate}</span>
-                        <span className="mx-2 text-typography">•</span>
+                        <span className="mx-2 text-typography">·</span>
                         <span className="text-typography">{readingTime} min read</span>
                     </div>
 
                     {/* Title */}
                     <Link
                         to={`/blog/${post.slug}`}
-                        className="leading-7 text-xl font-bold text-typography hover:text-primary transition-colors duration-300 block mb-4"
+                        className="leading-7 text-xl font-heading font-bold text-typography hover:text-primary transition-colors duration-300 block mb-4"
                     >
                         {post.title}
                     </Link>
 
                     {/* Summary */}
-                    <p className="mb-4 font-sans text-sm sm:text-base text-typography opacity-80 line-clamp-3">
+                    <p className="mb-4 text-sm text-typography opacity-80 line-clamp-3 leading-relaxed">
                         {summary}
                     </p>
 
@@ -58,7 +63,7 @@ const BlogCard = ({ post }) => {
                             {post.tags.slice(0, 3).map((tag, index) => (
                                 <span
                                     key={index}
-                                    className="px-3 py-1 bg-primary/20 text-primary text-xs rounded-full font-medium border border-primary/30"
+                                    className="px-2.5 py-0.5 bg-primary/15 text-primary text-xs rounded-full font-medium"
                                 >
                                     {tag}
                                 </span>
@@ -68,17 +73,17 @@ const BlogCard = ({ post }) => {
 
                     {/* Author */}
                     {post.author && (
-                        <div className="flex items-center">
-                            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
-                                <span className="text-background font-bold text-sm">
+                        <div className="flex items-center pt-3 border-t border-borderLight">
+                            <div className="w-7 h-7 bg-primary/20 rounded-full flex items-center justify-center mr-2.5">
+                                <span className="text-primary font-bold text-xs">
                                     {post.author.name.charAt(0)}
                                 </span>
                             </div>
-                            <span className="text-sm text-typography opacity-70">By {post.author.name}</span>
+                            <span className="text-sm text-typography-muted">By {post.author.name}</span>
                         </div>
                     )}
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 };

@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PageLayout from '../components/PageLayout';
 import SEO from '../components/SEO';
+import PageTransition from '../components/PageTransition';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const NotFound = () => {
     return (
+        <PageTransition>
         <PageLayout>
             <SEO
                 title="404 - Page Not Found | Yuvaraj Guru Portfolio"
@@ -88,6 +90,7 @@ const NotFound = () => {
                 </div>
             </div>
         </PageLayout>
+        </PageTransition>
     );
 };
 

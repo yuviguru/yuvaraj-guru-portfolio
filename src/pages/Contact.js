@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import PageTitle from '../components/PageTitle';
 import PageLayout from '../components/PageLayout';
 import SEO from '../components/SEO';
+import PageTransition from '../components/PageTransition';
 import { faEnvelopeOpen, faPhoneSquare, faLocation, faPaperPlane, faSpinner, faCheckCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
@@ -187,6 +188,7 @@ export default function Contact() {
 
     const SendButton = getButtonProps();
     return (
+        <PageTransition>
         <PageLayout>
             <SEO
                 title="Contact Yuvaraj Guru - Get in Touch for Project Collaboration"
@@ -294,5 +296,6 @@ export default function Contact() {
                 </div>
             </div>
         </PageLayout>
+        </PageTransition>
     );
 }

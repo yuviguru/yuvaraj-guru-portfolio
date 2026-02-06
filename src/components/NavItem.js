@@ -1,32 +1,49 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function NavItem({ name, icon, link }) {
     const location = useLocation();
-    const isActive = location.pathname === link;
-
-    // State to track hover status
-    const [isHovered, setIsHovered] = useState(false);
+    const isActive = location.pathname === link ||
+        (link !== '/' && location.pathname.startsWith(link));
 
     return (
-        <li
-            className={`flex w-fit text-white rounded-full justify-center items-center transition-all duration-500
-            ${isActive ? 'bg-primary' : 'bg-navPillsBg'} ${isHovered ? 'bg-primary' : ''}`}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
-            <Link to={link} className="flex items-center">
-                <div
-                    id="navelements"
-                    className={`text-sm font-medium uppercase flex justify-center items-center transition-all duration-100 ease-out
-                    ${isHovered ? 'w-20 ml-2 opacity-500' : 'w-0 opacity-0'}`}
+        <li className="relative">
+            <Link
+                to={link}
+                className="group flex items-center no-underline"
+            >
+                {/* Label - slides in on hover */}
+                <motion.span
+                    initial={false}
+                    className="text-xs font-heading font-medium uppercase tracking-wider text-white mr-2 overflow-hidden whitespace-nowrap"
+                    animate={{ width: 'auto', opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
                 >
                     {name}
-                </div>
-                <div className="w-12 h-12 flex justify-center items-center">
+                </motion.span>
+
+                {/* Icon circle */}
+                <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`w-12 h-12 flex justify-center items-center rounded-full transition-colors duration-200 ${
+                        isActive
+                            ? 'bg-primary text-white'
+                            : 'bg-navPillsBg text-white hover:bg-primary'
+                    }`}
+                >
                     <FontAwesomeIcon icon={icon} size="lg" />
-                </div>
+                </motion.div>
+
+                {/* Active indicator dot */}
+                {isActive && (
+                    <motion.div
+                        layoutId="nav-active"
+                        className="absolute -right-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-primary rounded-full"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                )}
             </Link>
         </li>
     );

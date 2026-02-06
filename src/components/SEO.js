@@ -2,9 +2,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
-    title = "Yuvaraj Guru - Full Stack Developer | React, Vue.js, Node.js Expert",
-    description = "Experienced Full Stack Developer with 10+ years in React, Vue.js, Node.js. Specialized in e-commerce, platform development, and performance optimization. Available for freelance projects.",
-    keywords = "Full Stack Developer, React Developer, Vue.js Developer, Node.js, JavaScript, TypeScript, E-commerce Development, Web Development, Software Engineer, Freelance Developer",
+    title = "Yuvaraj Guru - UI Engineer & Creative Developer | React, Design Systems, Framer Motion",
+    description = "UI Engineer & Creative Developer with 10+ years building polished interfaces with React, Vue.js, and Node.js. Specialized in design systems, motion design, and bridging design & development.",
+    keywords = "UI Engineer, Creative Developer, React Developer, Design Systems, Framer Motion, Vue.js, Tailwind CSS, Frontend Architecture, Motion Design, Web Development",
     image = "/images/profile-yuvaraj.png",
     url = "https://yuvarajguru.dev",
     type = "website",
@@ -23,7 +23,7 @@ const SEO = ({
                 "@id": `${url}/#person`,
                 "name": "Yuvaraj Guru",
                 "alternateName": "Yuvi Guru",
-                "description": "Experienced Full Stack Developer specializing in React, Vue.js, and Node.js with 10+ years of industry experience",
+                "description": "UI Engineer & Creative Developer specializing in React, design systems, and motion design with 10+ years of industry experience",
                 "url": url,
                 "image": {
                     "@type": "ImageObject",
@@ -36,7 +36,7 @@ const SEO = ({
                     "https://github.com/yuviguru",
                     "https://twitter.com/yuviguru"
                 ],
-                "jobTitle": "Lead Software Engineer",
+                "jobTitle": "UI Engineer & Creative Developer",
                 "worksFor": {
                     "@type": "Organization",
                     "name": "Freelance"
@@ -45,13 +45,15 @@ const SEO = ({
                     "React.js",
                     "Vue.js",
                     "Node.js",
-                    "JavaScript",
+                    "Design Systems",
+                    "Framer Motion",
+                    "Tailwind CSS",
                     "TypeScript",
-                    "Full Stack Development",
-                    "E-commerce Development",
-                    "Performance Optimization",
-                    "Microservices",
-                    "GraphQL"
+                    "Frontend Architecture",
+                    "Motion Design",
+                    "Figma",
+                    "GraphQL",
+                    "Accessibility"
                 ],
                 "email": "k.yuvarajguru@gmail.com",
                 "telephone": "+91-8668138534"
@@ -119,8 +121,8 @@ const SEO = ({
             <meta property="linkedin:owner" content="yuvaraj-guru" />
 
             {/* Additional SEO Meta Tags */}
-            <meta name="theme-color" content="#ff6b35" />
-            <meta name="msapplication-TileColor" content="#ff6b35" />
+            <meta name="theme-color" content="#a78bfa" />
+            <meta name="msapplication-TileColor" content="#a78bfa" />
             <meta name="msapplication-config" content="/browserconfig.xml" />
 
             {/* Canonical URL */}
@@ -132,9 +134,9 @@ const SEO = ({
             </script>
 
             {/* Additional Meta for Professional Profile */}
-            <meta name="skills" content="React, Vue.js, Node.js, JavaScript, TypeScript, Full Stack Development" />
+            <meta name="skills" content="React, Vue.js, Design Systems, Framer Motion, Tailwind CSS, Node.js, TypeScript, Figma" />
             <meta name="experience" content="10+ years" />
-            <meta name="availability" content="Available for freelance projects" />
+            <meta name="availability" content="Available for creative development projects" />
             <meta name="location" content="India" />
         </Helmet>
     );
