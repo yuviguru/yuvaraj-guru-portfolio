@@ -56,6 +56,10 @@ module.exports = {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
+        'hero-pulse': {
+          '0%, 100%': { opacity: '0.06' },
+          '50%': { opacity: '0.1' },
+        },
       },
     },
   },

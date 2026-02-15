@@ -10,10 +10,10 @@ import SEO from '../components/SEO';
 import PageTransition from '../components/PageTransition';
 
 const roles = [
-    "UI Engineer",
-    "Creative Developer",
-    "Design Systems Architect",
-    "Frontend Craftsman",
+    "Frontend Architect",
+    "Product Engineer",
+    "AI Integration Specialist",
+    "Workflow Automation Builder",
 ];
 
 const stats = [
@@ -57,15 +57,22 @@ function ScrollIndicator() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2, duration: 1 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
-            <span className="text-xs text-typography-muted uppercase tracking-[0.2em] font-medium">Scroll</span>
-            <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+            <Link
+                to="/about"
+                className="flex flex-col items-center gap-2 no-underline group cursor-pointer"
             >
-                <FontAwesomeIcon icon={faChevronDown} className="text-primary text-sm" />
-            </motion.div>
+                <span className="text-xs text-typography-muted uppercase tracking-[0.2em] font-medium group-hover:text-primary transition-colors">
+                    Know more about me
+                </span>
+                <motion.div
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                >
+                    <FontAwesomeIcon icon={faChevronDown} className="text-primary text-sm" />
+                </motion.div>
+            </Link>
         </motion.div>
     );
 }
@@ -81,33 +88,23 @@ export default function Home() {
     return (
         <PageTransition>
             <SEO
-                title="Yuvaraj Guru - UI Engineer & Creative Developer | React, Design Systems, Motion"
-                description="UI Engineer & Creative Developer with 10+ years of experience crafting premium digital experiences. Specialized in React, Design Systems, Framer Motion, and bridging design & code."
-                keywords="Yuvaraj Guru, UI Engineer, Creative Developer, Design Systems, React, Framer Motion, Frontend Developer, CSS Expert"
+                title="Yuvaraj Guru - Frontend Architect & Product Engineer | React, AI, Automation"
+                description="Frontend Architect & Product Engineer with 10+ years building end-to-end products. Expert in React, Vue.js, AI integrations, and workflow automations for software development, recruitment, and more."
+                keywords="Yuvaraj Guru, Frontend Architect, Product Engineer, AI Integration, Workflow Automation, React, Vue.js, Node.js, Full Stack Developer"
                 url="https://yuvarajguru.dev"
                 type="website"
             />
 
             <div className="relative min-h-screen w-full flex items-center overflow-hidden">
-                {/* Hero gradient orbs */}
+                {/* Hero gradient orbs — CSS-only for performance (no JS animation on blur) */}
                 <div className="absolute inset-0 pointer-events-none">
-                    <motion.div
-                        animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.08, 0.12, 0.08],
-                        }}
-                        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-                        className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[120px]"
-                        style={{ background: 'var(--color-primary)' }}
+                    <div
+                        className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[80px] animate-[hero-pulse_8s_ease-in-out_infinite] will-change-[opacity]"
+                        style={{ background: 'var(--color-primary)', transform: 'translateZ(0)' }}
                     />
-                    <motion.div
-                        animate={{
-                            scale: [1.2, 1, 1.2],
-                            opacity: [0.05, 0.08, 0.05],
-                        }}
-                        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
-                        className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full blur-[100px]"
-                        style={{ background: 'var(--color-accent)' }}
+                    <div
+                        className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full blur-[60px] animate-[hero-pulse_10s_ease-in-out_infinite_reverse] will-change-[opacity]"
+                        style={{ background: 'var(--color-accent)', transform: 'translateZ(0)' }}
                     />
                 </div>
 
@@ -154,8 +151,8 @@ export default function Home() {
                                 transition={{ delay: 0.7, duration: 0.5 }}
                                 className="text-typography-muted text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8"
                             >
-                                Crafting premium digital experiences at the intersection of design and engineering.
-                                Specialized in React, Design Systems, and making interfaces feel <em className="text-primary not-italic font-medium">alive</em>.
+                                Building end-to-end products with pixel-perfect interfaces, AI integrations, and workflow automations.
+                                10+ years turning ideas into polished, <em className="text-primary not-italic font-medium">production-ready</em> experiences.
                             </motion.p>
 
                             {/* CTA */}
@@ -169,10 +166,10 @@ export default function Home() {
                                     <Button {...MoreAboutMeButton} />
                                 </Link>
                                 <Link
-                                    to="/playground"
+                                    to="/portfolio"
                                     className="inline-flex items-center gap-2 px-8 py-3 border border-borderLight text-typography rounded-full font-semibold uppercase text-sm hover:border-primary hover:text-primary transition-colors duration-300 no-underline"
                                 >
-                                    Explore Playground
+                                    View My Work
                                 </Link>
                             </motion.div>
 
@@ -188,7 +185,7 @@ export default function Home() {
                                         key={stat.label}
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 1.2 + index * 0.1 }}
+                                        transition={{ delay: 0.6 + index * 0.08 }}
                                     >
                                         <span className="block font-heading text-2xl font-bold text-primary">{stat.value}</span>
                                         <span className="text-xs text-typography-muted uppercase tracking-wider">{stat.label}</span>
@@ -214,16 +211,14 @@ export default function Home() {
                                 <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 rounded-full overflow-hidden border-2 border-borderLight">
                                     <img
                                         src={profileImage}
-                                        alt="Yuvaraj Guru - UI Engineer"
+                                        alt="Yuvaraj Guru - Frontend Architect & Product Engineer"
                                         className="w-full h-full object-cover object-top"
                                         loading="eager"
                                     />
                                 </div>
-                                {/* Decorative ring */}
-                                <motion.div
-                                    animate={{ rotate: 360 }}
-                                    transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-                                    className="absolute -inset-3 rounded-full border border-dashed border-primary/20"
+                                {/* Decorative ring — CSS spin for zero JS cost */}
+                                <div
+                                    className="absolute -inset-3 rounded-full border border-dashed border-primary/20 animate-[spin_20s_linear_infinite] will-change-transform"
                                 />
                             </div>
                         </motion.div>

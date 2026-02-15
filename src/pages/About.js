@@ -190,9 +190,9 @@ export default function About() {
         <PageTransition>
             <PageLayout containerSize="wide">
                 <SEO
-                    title="About Yuvaraj Guru - UI Engineer & Creative Developer with 10+ Years Experience"
-                    description="Learn about Yuvaraj Guru's 10+ years journey as a UI Engineer & Creative Developer. Expertise in React, Vue.js, Design Systems, Framer Motion, and team leadership."
-                    keywords="About Yuvaraj Guru, UI Engineer, Creative Developer, Design Systems, React Expert, Frontend Developer"
+                    title="About Yuvaraj Guru - Frontend Architect & Product Engineer with 10+ Years Experience"
+                    description="Learn about Yuvaraj Guru's 10+ years journey building end-to-end products. Expertise in React, Vue.js, AI integrations, workflow automations, and team leadership."
+                    keywords="About Yuvaraj Guru, Frontend Architect, Product Engineer, AI Integration, Workflow Automation, React Expert"
                     url="https://yuvarajguru.dev/about"
                     type="profile"
                 />

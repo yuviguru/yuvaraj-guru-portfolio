@@ -64,7 +64,7 @@ export default function Blog() {
         <PageTransition>
         <PageLayout containerSize="wide">
             <SEO
-                title="Blog - Yuvaraj Guru | UI Engineering & Creative Development Insights"
+                title="Blog - Yuvaraj Guru | Frontend Architecture & Product Engineering Insights"
                 description="Read Yuvaraj Guru's blog posts about React optimization, Vue.js best practices, Node.js development, and full-stack development insights from 10+ years of experience."
                 keywords="Yuvaraj Guru Blog, React Performance, Vue.js Tips, Node.js Development, Full Stack Development Blog, JavaScript Best Practices, Web Development Insights"
                 url="https://yuvarajguru.dev/blog"
@@ -171,11 +171,10 @@ export default function Blog() {
                 {/* Blog Posts Grid */}
                 {paginatedPosts.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                        <AnimatePresence mode="popLayout">
+                        <AnimatePresence mode="wait">
                         {paginatedPosts.map((post, index) => (
                             <motion.div
                                 key={post.id}
-                                layout
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95 }}

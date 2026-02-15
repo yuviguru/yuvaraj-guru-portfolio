@@ -13,15 +13,12 @@ export default function NavItem({ name, icon, link }) {
                 to={link}
                 className="group flex items-center no-underline"
             >
-                {/* Label - slides in on hover */}
-                <motion.span
-                    initial={false}
-                    className="text-xs font-heading font-medium uppercase tracking-wider text-white mr-2 overflow-hidden whitespace-nowrap"
-                    animate={{ width: 'auto', opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
+                {/* Label - fades in on hover (CSS-only, no layout animation) */}
+                <span
+                    className="text-xs font-heading font-medium uppercase tracking-wider text-white mr-2 overflow-hidden whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                 >
                     {name}
-                </motion.span>
+                </span>
 
                 {/* Icon circle */}
                 <motion.div

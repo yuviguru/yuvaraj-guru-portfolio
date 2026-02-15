@@ -2,9 +2,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
-    title = "Yuvaraj Guru - UI Engineer & Creative Developer | React, Design Systems, Framer Motion",
-    description = "UI Engineer & Creative Developer with 10+ years building polished interfaces with React, Vue.js, and Node.js. Specialized in design systems, motion design, and bridging design & development.",
-    keywords = "UI Engineer, Creative Developer, React Developer, Design Systems, Framer Motion, Vue.js, Tailwind CSS, Frontend Architecture, Motion Design, Web Development",
+    title = "Yuvaraj Guru - Frontend Architect & Product Engineer | React, AI, Automation",
+    description = "Frontend Architect & Product Engineer with 10+ years building end-to-end products. Expert in React, Vue.js, AI integrations, and workflow automations for software development, recruitment, and more.",
+    keywords = "Frontend Architect, Product Engineer, React Developer, AI Integration, Workflow Automation, Vue.js, Node.js, Full Stack Developer, Design Systems, Tailwind CSS",
     image = "/images/profile-yuvaraj.png",
     url = "https://yuvarajguru.dev",
     type = "website",
@@ -23,7 +23,7 @@ const SEO = ({
                 "@id": `${url}/#person`,
                 "name": "Yuvaraj Guru",
                 "alternateName": "Yuvi Guru",
-                "description": "UI Engineer & Creative Developer specializing in React, design systems, and motion design with 10+ years of industry experience",
+                "description": "Frontend Architect & Product Engineer specializing in React, AI integrations, and workflow automations with 10+ years of industry experience",
                 "url": url,
                 "image": {
                     "@type": "ImageObject",
@@ -36,7 +36,7 @@ const SEO = ({
                     "https://github.com/yuviguru",
                     "https://twitter.com/yuviguru"
                 ],
-                "jobTitle": "UI Engineer & Creative Developer",
+                "jobTitle": "Frontend Architect & Product Engineer",
                 "worksFor": {
                     "@type": "Organization",
                     "name": "Freelance"
@@ -50,8 +50,9 @@ const SEO = ({
                     "Tailwind CSS",
                     "TypeScript",
                     "Frontend Architecture",
-                    "Motion Design",
-                    "Figma",
+                    "AI Integration",
+                    "Workflow Automation",
+                    "Product Development",
                     "GraphQL",
                     "Accessibility"
                 ],
@@ -136,7 +137,7 @@ const SEO = ({
             {/* Additional Meta for Professional Profile */}
             <meta name="skills" content="React, Vue.js, Design Systems, Framer Motion, Tailwind CSS, Node.js, TypeScript, Figma" />
             <meta name="experience" content="10+ years" />
-            <meta name="availability" content="Available for creative development projects" />
+            <meta name="availability" content="Available for frontend architecture, product engineering, and AI integration projects" />
             <meta name="location" content="India" />
         </Helmet>
     );

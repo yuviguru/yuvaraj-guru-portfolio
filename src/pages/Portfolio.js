@@ -15,15 +15,19 @@ const props = {
     bgTitle: "works"
 }
 
-// Generate a deterministic gradient from project title
+// Generate a deterministic gradient from project title (cached)
+const gradientCache = {};
 const generateGradient = (title) => {
+    if (gradientCache[title]) return gradientCache[title];
     let hash = 0;
     for (let i = 0; i < title.length; i++) {
         hash = title.charCodeAt(i) + ((hash << 5) - hash);
     }
     const hue1 = Math.abs(hash % 360);
     const hue2 = (hue1 + 40 + Math.abs((hash >> 8) % 60)) % 360;
-    return `linear-gradient(135deg, hsl(${hue1}, 60%, 25%) 0%, hsl(${hue2}, 70%, 15%) 100%)`;
+    const result = `linear-gradient(135deg, hsl(${hue1}, 60%, 25%) 0%, hsl(${hue2}, 70%, 15%) 100%)`;
+    gradientCache[title] = result;
+    return result;
 };
 
 // Professional projects (anonymized for NDA compliance)
@@ -190,17 +194,17 @@ const personalProjects = [
         title: "AI-Enhanced Portfolio Website",
         category: "Personal",
         period: "2024",
-        description: "Modern, responsive portfolio website built with React and enhanced with AI-powered development workflows. Features design system showcase, interactive playground, and Framer Motion animations.",
+        description: "Modern, responsive portfolio website built with React and enhanced with AI-powered development workflows. Features design system showcase, smooth animations, and end-to-end product engineering.",
         technologies: ["React", "Tailwind CSS", "Framer Motion", "Design Systems"],
         achievements: [
             "Leveraged AI tools for 40% faster development",
-            "Built design system showcase and interactive playground",
+            "Built design system showcase with live component demos",
             "Implemented smooth page transitions and micro-interactions"
         ],
         type: "personal",
         githubLink: "https://github.com/yuviguru/yuvaraj-guru-portfolio",
         liveLink: "https://yuvarajguru.dev",
-        role: "UI Engineer & Creative Developer"
+        role: "Frontend Architect & Product Engineer"
     }
 ];
 
@@ -226,12 +230,11 @@ const categories = [
     "Personal"
 ];
 
-const ProjectCard = ({ project, index }) => {
+const ProjectCard = React.memo(({ project, index }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
         <motion.div
-            layout
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -364,7 +367,7 @@ const ProjectCard = ({ project, index }) => {
             </div>
         </motion.div>
     );
-};
+});
 
 export default function Portfolio() {
     const [selectedCategory, setSelectedCategory] = useState("All");
@@ -380,7 +383,7 @@ export default function Portfolio() {
         <PageTransition>
         <PageLayout containerSize="wide">
             <SEO
-                title="Portfolio - Yuvaraj Guru | UI Engineer & Creative Developer"
+                title="Portfolio - Yuvaraj Guru | Frontend Architect & Product Engineer"
                 description="Explore Yuvaraj Guru's portfolio featuring 12+ professional projects in e-commerce, platform development, performance optimization, and more. 10+ years of expertise in React, Vue.js, Node.js."
                 keywords="Yuvaraj Guru Portfolio, Professional Projects, React Projects, Vue.js Applications, E-commerce Development, Platform Development, Software Engineer Portfolio"
                 url="https://yuvarajguru.dev/portfolio"
@@ -444,7 +447,7 @@ export default function Portfolio() {
 
                 {/* Projects Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <AnimatePresence mode="popLayout">
+                    <AnimatePresence mode="wait">
                     {filteredProjects.map((project, index) => (
                         <ProjectCard key={project.id} project={project} index={index} />
                     ))}

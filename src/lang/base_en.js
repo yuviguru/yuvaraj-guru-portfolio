@@ -1,7 +1,7 @@
 const baseEn = {
     heading: "I'm Yuvaraj Guru.",
-    subheading: "UI Engineer & Creative Developer",
-    description: "I craft polished, interactive interfaces that bridge design and development. With 10+ years of experience in React, Vue.js, and design systems, I build experiences that feel as good as they look.",
+    subheading: "Frontend Architect & Product Engineer",
+    description: "I build products end-to-end — from pixel-perfect frontends to AI-powered automations. With 10+ years across React, Vue.js, Node.js, and modern AI tools, I ship polished experiences that solve real problems.",
     buttonText: "More About Me",
 };
 

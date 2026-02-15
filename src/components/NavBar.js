@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import NavItem from './NavItem';
-import { faHome, faUser, faBriefcase, faEnvelope, faBlog, faBars, faTimes, faPalette, faFlask } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faBriefcase, faEnvelope, faBlog, faBars, faTimes, faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useLocation } from 'react-router-dom';
 import ThemeSwitcher from './ThemeSwitcher';
@@ -37,10 +37,9 @@ export default function NavBar() {
         { name: 'Home', icon: faHome, link: '/' },
         { name: 'About', icon: faUser, link: '/about' },
         { name: 'Portfolio', icon: faBriefcase, link: '/portfolio' },
-        { name: 'Design System', icon: faPalette, link: '/design-system' },
-        { name: 'Playground', icon: faFlask, link: '/playground' },
         { name: 'Blog', icon: faBlog, link: '/blog' },
         { name: 'Contact', icon: faEnvelope, link: '/contact' },
+        { name: 'Design System', icon: faPalette, link: '/design-system' },
     ];
 
     const toggleMobileMenu = () => {

@@ -1,93 +1,108 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+
+const SPRING_CONFIG = { stiffness: 500, damping: 30, mass: 0.5 };
 
 const CustomCursor = () => {
-    const [isVisible, setIsVisible] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [isClicking, setIsClicking] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
+    const isTouchRef = useRef(false);
 
-    // Smooth spring-based cursor position
-    const cursorX = useSpring(0, { stiffness: 300, damping: 28 });
-    const cursorY = useSpring(0, { stiffness: 300, damping: 28 });
-
-    const handleMouseMove = useCallback((e) => {
-        cursorX.set(e.clientX);
-        cursorY.set(e.clientY);
-        if (!isVisible) setIsVisible(true);
-    }, [cursorX, cursorY, isVisible]);
-
-    const handleMouseDown = useCallback(() => setIsClicking(true), []);
-    const handleMouseUp = useCallback(() => setIsClicking(false), []);
-    const handleMouseLeave = useCallback(() => setIsVisible(false), []);
-    const handleMouseEnter = useCallback(() => setIsVisible(true), []);
+    // Motion values (stable refs — never change identity)
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+    const cursorX = useSpring(mouseX, SPRING_CONFIG);
+    const cursorY = useSpring(mouseY, SPRING_CONFIG);
 
     useEffect(() => {
-        // Check for touch device or prefers-reduced-motion
+        // Bail early on touch devices or reduced motion
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (isTouchDevice || prefersReducedMotion) {
+            isTouchRef.current = true;
+            return;
+        }
 
-        if (isTouchDevice || prefersReducedMotion) return;
+        let visible = false;
 
-        const handleHoverStart = (e) => {
-            const target = e.target.closest('a, button, [role="button"], input, textarea, select, [data-cursor="pointer"]');
-            if (target) setIsHovering(true);
+        // Mousemove — update motion values directly (no React state)
+        const onMouseMove = (e) => {
+            mouseX.set(e.clientX);
+            mouseY.set(e.clientY);
+            if (!visible) {
+                visible = true;
+                setIsVisible(true);
+            }
         };
 
-        const handleHoverEnd = (e) => {
-            const target = e.target.closest('a, button, [role="button"], input, textarea, select, [data-cursor="pointer"]');
-            if (target) setIsHovering(false);
+        const onMouseDown = () => setIsClicking(true);
+        const onMouseUp = () => setIsClicking(false);
+        const onMouseLeave = () => { visible = false; setIsVisible(false); };
+        const onMouseEnter = () => { visible = true; setIsVisible(true); };
+
+        // Hover detection — check tagName first (fast), .closest() only as fallback
+        const isInteractive = (el) => {
+            const tag = el.tagName;
+            if (tag === 'A' || tag === 'BUTTON' || tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return true;
+            if (el.getAttribute?.('role') === 'button') return true;
+            if (el.closest?.('a, button')) return true;
+            return false;
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mousedown', handleMouseDown);
-        window.addEventListener('mouseup', handleMouseUp);
-        document.addEventListener('mouseleave', handleMouseLeave);
-        document.addEventListener('mouseenter', handleMouseEnter);
-        document.addEventListener('mouseover', handleHoverStart);
-        document.addEventListener('mouseout', handleHoverEnd);
+        const onMouseOver = (e) => { if (isInteractive(e.target)) setIsHovering(true); };
+        const onMouseOut = (e) => { if (isInteractive(e.target)) setIsHovering(false); };
+
+        window.addEventListener('mousemove', onMouseMove, { passive: true });
+        window.addEventListener('mousedown', onMouseDown);
+        window.addEventListener('mouseup', onMouseUp);
+        document.addEventListener('mouseleave', onMouseLeave);
+        document.addEventListener('mouseenter', onMouseEnter);
+        document.addEventListener('mouseover', onMouseOver, { passive: true });
+        document.addEventListener('mouseout', onMouseOut, { passive: true });
 
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mousedown', handleMouseDown);
-            window.removeEventListener('mouseup', handleMouseUp);
-            document.removeEventListener('mouseleave', handleMouseLeave);
-            document.removeEventListener('mouseenter', handleMouseEnter);
-            document.removeEventListener('mouseover', handleHoverStart);
-            document.removeEventListener('mouseout', handleHoverEnd);
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mousedown', onMouseDown);
+            window.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('mouseleave', onMouseLeave);
+            document.removeEventListener('mouseenter', onMouseEnter);
+            document.removeEventListener('mouseover', onMouseOver);
+            document.removeEventListener('mouseout', onMouseOut);
         };
-    }, [handleMouseMove, handleMouseDown, handleMouseUp, handleMouseLeave, handleMouseEnter]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Empty deps — motion values are stable refs, state setters are stable
 
     // Don't render on touch devices
-    const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    if (isTouchDevice) return null;
+    if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        return null;
+    }
+
+    // Scale-based sizing (transform only — no layout thrash)
+    const ringScale = isHovering ? 1.7 : isClicking ? 0.6 : 1;
 
     return (
         <>
-            {/* Cursor ring */}
+            {/* Cursor ring — fixed 28px, scale-based resize */}
             <motion.div
-                className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+                className="fixed top-0 left-0 pointer-events-none z-[9999]"
                 style={{
                     x: cursorX,
                     y: cursorY,
                     translateX: '-50%',
                     translateY: '-50%',
-                }}
-                animate={{
-                    width: isHovering ? 48 : isClicking ? 16 : 28,
-                    height: isHovering ? 48 : isClicking ? 16 : 28,
-                    opacity: isVisible ? 1 : 0,
-                }}
-                transition={{
-                    width: { type: 'spring', stiffness: 300, damping: 20 },
-                    height: { type: 'spring', stiffness: 300, damping: 20 },
-                    opacity: { duration: 0.15 },
+                    width: 28,
+                    height: 28,
+                    willChange: 'transform',
                 }}
             >
                 <div
-                    className="w-full h-full rounded-full border-2 border-white transition-colors duration-200"
+                    className="w-full h-full rounded-full border-2 transition-all duration-150 ease-out"
                     style={{
-                        borderColor: isHovering ? 'var(--color-primary)' : 'rgba(255,255,255,0.6)',
-                        backgroundColor: isHovering ? 'rgba(167, 139, 250, 0.1)' : 'transparent',
+                        transform: `scale(${ringScale})`,
+                        opacity: isVisible ? 1 : 0,
+                        borderColor: isHovering ? 'var(--color-primary)' : 'rgba(255,255,255,0.5)',
+                        backgroundColor: isHovering ? 'rgba(167, 139, 250, 0.08)' : 'transparent',
                     }}
                 />
             </motion.div>
@@ -100,15 +115,15 @@ const CustomCursor = () => {
                     y: cursorY,
                     translateX: '-50%',
                     translateY: '-50%',
+                    width: 4,
+                    height: 4,
+                    willChange: 'transform',
                 }}
-                animate={{
-                    width: isClicking ? 6 : 4,
-                    height: isClicking ? 6 : 4,
-                    opacity: isVisible && !isHovering ? 0.8 : 0,
-                }}
-                transition={{ duration: 0.1 }}
             >
-                <div className="w-full h-full rounded-full bg-white" />
+                <div
+                    className="w-full h-full rounded-full bg-white transition-opacity duration-100"
+                    style={{ opacity: isVisible && !isHovering ? 0.7 : 0 }}
+                />
             </motion.div>
         </>
     );
