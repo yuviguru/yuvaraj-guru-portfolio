@@ -1,18 +1,17 @@
 import React from 'react';
 
 const LoadingSpinner = ({ className = "", text = "", fullScreen = false }) => {
+    const spinner = (
+        <div
+            className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin"
+        />
+    );
+
     const content = (
-        <div className={`flex flex-col items-center justify-center ${className}`}>
-            <div className="loader-bars">
-                <div className="loader-bars__bar"></div>
-                <div className="loader-bars__bar"></div>
-                <div className="loader-bars__bar"></div>
-                <div className="loader-bars__bar"></div>
-                <div className="loader-bars__bar"></div>
-                <div className="loader-bars__ball"></div>
-            </div>
+        <div className={`flex flex-col items-center justify-center gap-3 ${className}`}>
+            {spinner}
             {text && (
-                <p className="text-typography opacity-70 text-sm font-medium mt-4">
+                <p className="text-typography opacity-70 text-sm font-medium">
                     {text}
                 </p>
             )}
