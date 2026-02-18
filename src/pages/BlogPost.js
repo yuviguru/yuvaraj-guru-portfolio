@@ -7,6 +7,7 @@ import SEO from '../components/SEO';
 import PageTransition from '../components/PageTransition';
 import FadeIn from '../components/motion/FadeIn';
 import { calculateReadingTime, formatDate } from '../utils/helper';
+import { resolveBlogImage } from '../utils/blogImageResolver';
 import posts from '../data/posts';
 import blogDefaultImg from '../assets/images/blog-default-img.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -38,6 +39,8 @@ const BlogPost = () => {
 
     const readingTime = calculateReadingTime(post.content);
     const formattedDate = formatDate(post.date);
+    const featuredImage = resolveBlogImage(post, blogDefaultImg);
+    const seoImage = resolveBlogImage(post, "/images/profile-yuvaraj.png");
 
     return (
         <PageTransition>
@@ -46,6 +49,7 @@ const BlogPost = () => {
                 title={`${post.title} - Yuvaraj Guru's Blog`}
                 description={post.summary}
                 keywords={post.tags.join(', ')}
+                image={seoImage}
                 url={`https://yuvarajguru.dev/blog/${post.slug}`}
                 type="article"
             />
@@ -105,15 +109,19 @@ const BlogPost = () => {
 
                         {/* Featured Image */}
                         <motion.div
-                            className="mb-8 overflow-hidden rounded-xl"
+                            className="mb-8 overflow-hidden rounded-xl border border-borderLight bg-surface/20"
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
                             <img
-                                className="w-full h-64 sm:h-80 object-cover"
-                                src={post.image || blogDefaultImg}
-                                alt={post.title}
+                                className="w-full h-auto object-contain"
+                                src={featuredImage}
+                                alt={post.imageAlt || post.title}
+                                onError={(event) => {
+                                    event.currentTarget.onerror = null;
+                                    event.currentTarget.src = blogDefaultImg;
+                                }}
                             />
                         </motion.div>
                     </header>

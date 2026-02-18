@@ -1,20 +1,32 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
+import Logo, { LOGO_LAYOUT_ID } from './Logo';
 
 // ─────────────────────────────────────────────────────────────────────
 // PREMIUM 3D SPLASH — INTEGRATED YG MONOGRAM
 // Glass morphism + rotating energy ring + SVG stroke draw + glow
+// Colors: Primary violet palette only
 // ─────────────────────────────────────────────────────────────────────
 
-// ── SVG paths — Y integrated inside G ───────────────────────────────
-const G_PATH = 'M140 60 A60 60 0 1 0 140 140 M140 100 L170 100';
-const Y_PATH = 'M60 60 L100 100 L140 60 M100 100 L100 150';
+// ── Theme colors ─────────────────────────────────────────────────────
+// Using only primary violet palette - no accent colors
+const THEME = {
+  primary: '#a78bfa',
+  primaryLight: '#c4b5fd',
+  primaryLighter: '#ddd6fe',
+  primaryDark: '#7c3aed',
+  primaryDarker: '#5b21b6',
+  background: '#0a0a0f',
+  surface: '#141420',
+  white: '#ffffff',
+};
 
 // ── Orbit dots ──────────────────────────────────────────────────────
+// Using only violet palette
 const ORBIT_DOTS = [
-  { id: 0, angle: 0, opacity: 0.9, size: 6 },
-  { id: 1, angle: 120, opacity: 0.55, size: 5 },
-  { id: 2, angle: 240, opacity: 0.35, size: 4 },
+  { id: 0, angle: 0, opacity: 0.9, size: 6, color: THEME.primary },
+  { id: 1, angle: 120, opacity: 0.7, size: 5, color: THEME.primaryLight },
+  { id: 2, angle: 240, opacity: 0.55, size: 4, color: THEME.primaryLighter },
 ];
 
 // ── Spark particles (burst outward after draw) ──────────────────────
@@ -22,41 +34,16 @@ const createSparks = () =>
   Array.from({ length: 16 }, (_, i) => {
     const angle = (i / 16) * Math.PI * 2;
     const radius = 120 + Math.random() * 60;
+    const colors = [THEME.primary, THEME.primaryLight, THEME.primaryLighter, THEME.white];
     return {
       id: i,
       endX: Math.cos(angle) * radius,
       endY: Math.sin(angle) * radius,
       size: 1.5 + Math.random() * 2,
       delay: 1.8 + Math.random() * 0.4,
+      color: colors[i % colors.length],
     };
   });
-
-// ── Stroke draw variant ─────────────────────────────────────────────
-const createDrawVariant = (delay) => ({
-  hidden: { pathLength: 0, opacity: 0 },
-  visible: {
-    pathLength: 1,
-    opacity: 1,
-    transition: {
-      pathLength: { duration: 1.6, delay, ease: [0.4, 0, 0.2, 1] },
-      opacity: { duration: 0.3, delay },
-    },
-  },
-});
-
-// ── Glow pulse variant (after draw completes) ───────────────────────
-const glowPulseVariant = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: [0, 0.6, 0.3, 0.5, 0.3],
-    transition: {
-      duration: 2.4,
-      delay: 1.6,
-      repeat: Infinity,
-      ease: 'easeInOut',
-    },
-  },
-};
 
 export default function SplashScreen() {
   const sparks = useMemo(createSparks, []);
@@ -65,11 +52,11 @@ export default function SplashScreen() {
     <motion.div
       key="splash"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, filter: 'blur(10px)', scale: 1.04 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
       style={{
-        background: 'radial-gradient(ellipse 1200px 700px at 50% 45%, #0b0b11 0%, #050507 55%, #000 100%)',
+        background: `radial-gradient(ellipse 1200px 700px at 50% 45%, ${THEME.surface} 0%, ${THEME.background} 55%, #000 100%)`,
       }}
     >
       {/* ── Ambient glow behind everything ─────────────────────────── */}
@@ -82,37 +69,39 @@ export default function SplashScreen() {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           background: `
-            radial-gradient(closest-side, rgba(255,255,255,0.08), transparent 70%),
-            radial-gradient(closest-side at 30% 30%, rgba(255,255,255,0.04), transparent 65%),
-            radial-gradient(closest-side at 70% 80%, rgba(255,255,255,0.025), transparent 65%)
+            radial-gradient(closest-side, ${THEME.primary}15, transparent 70%),
+            radial-gradient(closest-side at 30% 30%, ${THEME.primaryLight}10, transparent 65%),
+            radial-gradient(closest-side at 70% 80%, ${THEME.primaryLighter}08, transparent 65%)
           `,
-          filter: 'blur(18px)',
+          filter: 'blur(40px)',
         }}
       />
 
       {/* ── The main stage ────────────────────────────────────────── */}
       <div className="relative" style={{ width: '220px', height: '220px' }}>
 
-        {/* ── ROTATING ENERGY RING (conic gradient) ────────────────── */}
+        {/* ── ROTATING ENERGY RING (conic gradient with theme colors) ─ */}
         <motion.div
           className="absolute inset-0 rounded-full"
           style={{
             background: `conic-gradient(from 180deg,
-              rgba(255,255,255,0) 0% 14%,
-              rgba(255,255,255,0.95) 18%,
-              rgba(255,255,255,0) 24% 50%,
-              rgba(255,255,255,0.65) 56%,
-              rgba(255,255,255,0) 62% 100%)`,
+              ${THEME.primary}00 0% 8%,
+              ${THEME.primary} 8% 14%,
+              ${THEME.primary}00 14% 41%,
+              ${THEME.primary} 41% 47%,
+              ${THEME.primary}00 47% 74%,
+              ${THEME.primary} 74% 80%,
+              ${THEME.primary}00 80% 100%)`,
             mask: 'radial-gradient(circle, transparent 57%, #000 58%)',
             WebkitMask: 'radial-gradient(circle, transparent 57%, #000 58%)',
-            filter: 'drop-shadow(0 0 22px rgba(255,255,255,0.25))',
+            filter: `drop-shadow(0 0 22px ${THEME.primary}40)`,
           }}
           initial={{ opacity: 0, scale: 0.7, rotate: 0 }}
           animate={{ opacity: 0.9, scale: 1, rotate: 360 }}
           transition={{
             opacity: { duration: 0.8, delay: 0.3 },
             scale: { duration: 1.0, delay: 0.3, ease: [0.16, 1, 0.3, 1] },
-            rotate: { duration: 1.6, repeat: Infinity, ease: 'linear' },
+            rotate: { duration: 2.4, repeat: Infinity, ease: 'linear' },
           }}
         />
 
@@ -121,11 +110,11 @@ export default function SplashScreen() {
           className="absolute rounded-full"
           style={{
             inset: '18px',
-            border: '1px solid rgba(255,255,255,0.12)',
-            boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.04), 0 0 0 1px rgba(255,255,255,0.03)',
+            border: `1px solid ${THEME.primary}20`,
+            boxShadow: `inset 0 0 0 1px ${THEME.primary}10, 0 0 0 1px ${THEME.primaryLight}08`,
           }}
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: [0.8, 1, 0.8], scale: [1, 1.03, 1] }}
+          animate={{ opacity: [0.6, 1, 0.6], scale: [1, 1.03, 1] }}
           transition={{
             duration: 1.8,
             delay: 0.6,
@@ -134,115 +123,15 @@ export default function SplashScreen() {
           }}
         />
 
-        {/* ── GLASS CORE — the container ───────────────────────────── */}
-        <motion.div
-          className="absolute overflow-hidden"
-          style={{
-            inset: '36px',
-            borderRadius: '32px',
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03))',
-            border: '1px solid rgba(255,255,255,0.14)',
-            boxShadow: '0 18px 70px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.10)',
-          }}
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {/* Scanning highlight sweep */}
-          <motion.div
-            className="absolute pointer-events-none"
-            style={{
-              inset: '-60px',
-              background: 'linear-gradient(110deg, transparent 0% 45%, rgba(255,255,255,0.25) 50%, transparent 55% 100%)',
-            }}
-            initial={{ x: '-55%', opacity: 0 }}
-            animate={{ x: ['-55%', '55%'], opacity: [0, 0.9, 0.8, 0] }}
-            transition={{
-              duration: 1.25,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-
-          {/* Micro grid overlay */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)
-              `,
-              backgroundSize: '14px 14px',
-              opacity: 0.25,
-              mixBlendMode: 'overlay',
-            }}
-          />
-        </motion.div>
-
-        {/* ── SVG MONOGRAM — stroke draw animation ─────────────────── */}
+        {/* ── SVG MONOGRAM — Logo animation ─────────────────────────── */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <motion.svg
-            viewBox="0 0 200 200"
+          <motion.div
+            layoutId={LOGO_LAYOUT_ID}
+            transition={{ type: 'spring', stiffness: 260, damping: 28, mass: 0.9 }}
             className="w-[130px] h-[130px]"
-            initial="hidden"
-            animate="visible"
-            style={{
-              filter: 'drop-shadow(0 0 12px rgba(255,255,255,0.2))',
-            }}
           >
-            <defs>
-              {/* Glow filter for the strokes */}
-              <filter id="yg-glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="3" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-
-            {/* Glow layer (behind) */}
-            <motion.g filter="url(#yg-glow)" variants={glowPulseVariant}>
-              <path
-                d={G_PATH}
-                fill="none"
-                stroke="rgba(255,255,255,0.6)"
-                strokeWidth="14"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d={Y_PATH}
-                fill="none"
-                stroke="rgba(255,255,255,0.6)"
-                strokeWidth="14"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </motion.g>
-
-            {/* G — main stroke draw */}
-            <motion.path
-              d={G_PATH}
-              fill="none"
-              stroke="rgba(255,255,255,0.92)"
-              strokeWidth="10"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              variants={createDrawVariant(0.4)}
-            />
-
-            {/* Y — main stroke draw (slightly delayed) */}
-            <motion.path
-              d={Y_PATH}
-              fill="none"
-              stroke="rgba(255,255,255,0.92)"
-              strokeWidth="10"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              variants={createDrawVariant(0.7)}
-            />
-          </motion.svg>
+            <Logo size="splash" animate={true} showGlow={true} />
+          </motion.div>
         </div>
 
         {/* ── ORBIT DOTS ───────────────────────────────────────────── */}
@@ -250,7 +139,7 @@ export default function SplashScreen() {
           className="absolute inset-0"
           initial={{ rotate: 0 }}
           animate={{ rotate: 360 }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
         >
           {ORBIT_DOTS.map((dot) => (
             <motion.div
@@ -259,8 +148,8 @@ export default function SplashScreen() {
               style={{
                 width: dot.size,
                 height: dot.size,
-                background: 'rgba(255,255,255,0.85)',
-                boxShadow: '0 0 18px rgba(255,255,255,0.35)',
+                background: dot.color,
+                boxShadow: `0 0 18px ${dot.color}60`,
                 top: '50%',
                 left: '50%',
                 transformOrigin: '0 0',
@@ -282,8 +171,8 @@ export default function SplashScreen() {
             style={{
               width: s.size,
               height: s.size,
-              background: 'rgba(255,255,255,0.8)',
-              boxShadow: '0 0 6px rgba(255,255,255,0.4)',
+              background: s.color,
+              boxShadow: `0 0 8px ${s.color}80`,
               top: '50%',
               left: '50%',
             }}
@@ -313,7 +202,7 @@ export default function SplashScreen() {
       >
         <div className="flex items-center gap-3">
           <motion.div
-            style={{ height: '1px', background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.3))' }}
+            style={{ height: '1px', background: `linear-gradient(to right, transparent, ${THEME.primary}50)` }}
             initial={{ width: 0 }}
             animate={{ width: 32 }}
             transition={{ duration: 0.7, delay: 2.2, ease: [0.22, 1, 0.36, 1] }}
@@ -323,13 +212,13 @@ export default function SplashScreen() {
             style={{
               fontSize: '10px',
               letterSpacing: '0.3em',
-              color: 'rgba(255,255,255,0.45)',
+              color: `${THEME.primary}99`,
             }}
           >
             Crafting Experiences
           </p>
           <motion.div
-            style={{ height: '1px', background: 'linear-gradient(to left, transparent, rgba(255,255,255,0.3))' }}
+            style={{ height: '1px', background: `linear-gradient(to left, transparent, ${THEME.primaryLight}50)` }}
             initial={{ width: 0 }}
             animate={{ width: 32 }}
             transition={{ duration: 0.7, delay: 2.2, ease: [0.22, 1, 0.36, 1] }}
@@ -344,13 +233,13 @@ export default function SplashScreen() {
           bottom: '48px',
           width: '160px',
           height: '2px',
-          background: 'rgba(255,255,255,0.06)',
+          background: `${THEME.primary}10`,
         }}
       >
         <motion.div
           className="h-full rounded-full origin-left"
           style={{
-            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), rgba(255,255,255,0.9))',
+            background: `linear-gradient(90deg, transparent, ${THEME.primary}, ${THEME.primaryLight})`,
           }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}

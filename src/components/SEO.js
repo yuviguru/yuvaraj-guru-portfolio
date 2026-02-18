@@ -12,7 +12,15 @@ const SEO = ({
     twitterHandle = "@yuviguru"
 }) => {
     const fullTitle = title.includes("Yuvaraj Guru") ? title : `${title} | Yuvaraj Guru`;
-    const fullImageUrl = image.startsWith('http') ? image : `${url}${image}`;
+    const siteOrigin = (() => {
+        try {
+            return new URL(url).origin;
+        } catch (error) {
+            return "https://yuvarajguru.dev";
+        }
+    })();
+    const normalizedImagePath = image.startsWith('/') ? image : `/${image}`;
+    const fullImageUrl = image.startsWith('http') ? image : `${siteOrigin}${normalizedImagePath}`;
 
     // Structured Data for Person and Professional Profile
     const structuredData = {

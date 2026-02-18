@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import NavItem from './NavItem';
+import Logo, { LOGO_LAYOUT_ID } from './Logo';
 import { faHome, faUser, faBriefcase, faEnvelope, faBlog, faBars, faTimes, faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useLocation } from 'react-router-dom';
@@ -29,7 +30,7 @@ function MobileNavItem({ name, icon, link }) {
     );
 }
 
-export default function NavBar() {
+export default function NavBar({ showSplash = false }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const location = useLocation();
 
@@ -69,11 +70,30 @@ export default function NavBar() {
 
     return (
         <>
-            {/* Desktop Navigation */}
-            <aside className="hidden lg:flex fixed top-0 right-2 z-40 h-screen p-4 items-center justify-center">
+            {/* Desktop Navigation - Logo integrated at the top */}
+            <aside className="hidden lg:flex fixed top-0 right-0 z-40 h-screen p-6 items-center justify-center">
                 <nav>
                     <ul className="flex flex-col gap-4 items-end">
-                        {navItems.map((item, index) => (
+                        {/* Logo at top of right navigation */}
+                        <motion.li
+                            initial={false}
+                            animate={{ opacity: showSplash ? 0 : 1 }}
+                            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                            className="mb-6 min-h-[48px] w-12 self-end flex items-center justify-center"
+                        >
+                            {!showSplash && (
+                                <Link to="/" className="flex items-center justify-center no-underline group" aria-label="Home">
+                                    <motion.div
+                                        layoutId={LOGO_LAYOUT_ID}
+                                        transition={{ type: 'spring', stiffness: 260, damping: 28, mass: 0.9 }}
+                                        className="w-12 h-12 flex items-center justify-center"
+                                    >
+                                        <Logo size="nav" animate={false} showGlow={true} />
+                                    </motion.div>
+                                </Link>
+                            )}
+                        </motion.li>
+                        {navItems.map((item) => (
                             <NavItem
                                 key={item.link}
                                 name={item.name}

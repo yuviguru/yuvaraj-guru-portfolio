@@ -2,7 +2,7 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, LayoutGroup } from 'framer-motion';
 import NavBar from './components/NavBar';
 import ErrorBoundary from './components/ErrorBoundary';
 import BackgroundEffects from './components/BackgroundEffects';
@@ -47,7 +47,7 @@ function App() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, prefersReduced ? 0 : 3200);
+    }, prefersReduced ? 0 : 3000); // Sync with navbar logo appearance for seamless transition
     return () => clearTimeout(timer);
   }, []);
 
@@ -57,22 +57,24 @@ function App() {
         <ThemeProvider>
           <LanguageProvider>
             <Router>
-              <AnimatePresence mode="wait">
-                {showSplash && <SplashScreen />}
-              </AnimatePresence>
-              <div className={`yuvaraj-guru-portfolio min-h-screen bg-background font-sans text-typography transition-colors duration-300 ${showSplash ? 'overflow-hidden' : ''}`}>
-                <BackgroundEffects />
-                <ScrollProgress />
-                <CustomCursor />
-                <NavBar />
-                <Suspense fallback={
-                  <div className="flex items-center justify-center min-h-screen">
-                    <LoadingSpinner />
-                  </div>
-                }>
-                  <AnimatedRoutes />
-                </Suspense>
-              </div>
+              <LayoutGroup id="logo-handoff">
+                <AnimatePresence mode="wait">
+                  {showSplash && <SplashScreen />}
+                </AnimatePresence>
+                <div className={`yuvaraj-guru-portfolio min-h-screen bg-background font-sans text-typography transition-colors duration-300 ${showSplash ? 'overflow-hidden' : ''}`}>
+                  <BackgroundEffects />
+                  <ScrollProgress />
+                  <CustomCursor />
+                  <NavBar showSplash={showSplash} />
+                  <Suspense fallback={
+                    <div className="flex items-center justify-center min-h-screen">
+                      <LoadingSpinner />
+                    </div>
+                  }>
+                    <AnimatedRoutes />
+                  </Suspense>
+                </div>
+              </LayoutGroup>
             </Router>
           </LanguageProvider>
         </ThemeProvider>
