@@ -23,11 +23,25 @@ export default function Blog() {
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 6;
 
-    // Get all unique tags
-    const allTags = useMemo(() => {
-        const tags = posts.flatMap(post => post.tags || []);
-        return [...new Set(tags)].sort();
+    // Build tag stats once to keep filtering compact as content grows
+    const tagStats = useMemo(() => {
+        const counts = {};
+        posts.forEach(post => {
+            (post.tags || []).forEach(tag => {
+                counts[tag] = (counts[tag] || 0) + 1;
+            });
+        });
+
+        return Object.entries(counts)
+            .map(([tag, count]) => ({ tag, count }))
+            .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
     }, []);
+
+    const quickTags = useMemo(() => tagStats.slice(0, 6), [tagStats]);
+
+    const allTags = useMemo(() => {
+        return [...tagStats].sort((a, b) => a.tag.localeCompare(b.tag));
+    }, [tagStats]);
 
     // Filter posts based on search and tag
     const filteredPosts = useMemo(() => {
@@ -98,34 +112,58 @@ export default function Blog() {
                         )}
                     </div>
 
-                    {/* Tag Filter */}
-                    <div className="flex flex-wrap gap-2 items-center">
-                        <span className="text-typography font-medium text-sm">Filter:</span>
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => setSelectedTag('')}
-                            className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${!selectedTag
-                                ? 'bg-primary text-white'
-                                : 'bg-surface text-typography opacity-70 hover:opacity-100 border border-borderLight'
-                                }`}
-                        >
-                            All
-                        </motion.button>
-                        {allTags.map(tag => (
+                    {/* Topic Filter */}
+                    <div className="space-y-3">
+                        <div className="flex flex-wrap gap-2 items-center">
+                            <span className="text-typography font-medium text-sm">Quick topics:</span>
                             <motion.button
-                                key={tag}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={() => setSelectedTag(tag)}
-                                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${selectedTag === tag
+                                onClick={() => setSelectedTag('')}
+                                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${!selectedTag
                                     ? 'bg-primary text-white'
                                     : 'bg-surface text-typography opacity-70 hover:opacity-100 border border-borderLight'
                                     }`}
                             >
-                                {tag}
+                                All
                             </motion.button>
-                        ))}
+                            {quickTags.map(({ tag }) => (
+                                <motion.button
+                                    key={tag}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => setSelectedTag(tag)}
+                                    className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${selectedTag === tag
+                                        ? 'bg-primary text-white'
+                                        : 'bg-surface text-typography opacity-70 hover:opacity-100 border border-borderLight'
+                                        }`}
+                                >
+                                    {tag}
+                                </motion.button>
+                            ))}
+                        </div>
+
+                        <div className="flex flex-wrap gap-2 items-center">
+                            <label
+                                htmlFor="topic-filter"
+                                className="text-typography font-medium text-sm"
+                            >
+                                All topics:
+                            </label>
+                            <select
+                                id="topic-filter"
+                                value={selectedTag}
+                                onChange={(event) => setSelectedTag(event.target.value)}
+                                className="px-3 py-2 bg-surface border border-borderLight rounded-lg text-sm text-typography focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            >
+                                <option value="">All topics</option>
+                                {allTags.map(({ tag, count }) => (
+                                    <option key={tag} value={tag}>
+                                        {tag} ({count})
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
 
                     {/* Active Filters */}
@@ -175,6 +213,7 @@ export default function Blog() {
                         {paginatedPosts.map((post, index) => (
                             <motion.div
                                 key={post.id}
+                                className="h-full"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95 }}

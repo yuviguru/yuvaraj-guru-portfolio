@@ -1,9 +1,19 @@
 import React from 'react';
 
+// Theme colors matching the website
+const THEME = {
+    primary: '#a78bfa',
+    accent: '#34d399',
+};
+
 const LoadingSpinner = ({ className = "", text = "", fullScreen = false }) => {
     const spinner = (
         <div
-            className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin"
+            className="w-8 h-8 rounded-full animate-spin"
+            style={{
+                border: `2px solid ${THEME.primary}20`,
+                borderTopColor: THEME.primary,
+            }}
         />
     );
 

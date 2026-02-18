@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import profileImage from '../assets/images/yuvaraj-headshot-no-bg.png';
+import profileImage from '../assets/images/yg-cover.png';
 import { faArrowRight, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslations } from '../hooks/useTranslations';
@@ -208,7 +208,7 @@ export default function Home() {
                                     style={{ background: 'var(--color-primary)' }}
                                 />
                                 {/* Image */}
-                                <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 rounded-full overflow-hidden border-2 border-borderLight">
+                                <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-2 border-borderLight">
                                     <img
                                         src={profileImage}
                                         alt="Yuvaraj Guru - Frontend Architect & Product Engineer"

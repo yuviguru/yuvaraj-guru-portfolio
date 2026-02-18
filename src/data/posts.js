@@ -1,3 +1,5 @@
+import transitionPosts from './transitionPosts';
+
 // Shared blog posts data - single source of truth
 const posts = [
     {
@@ -11,6 +13,9 @@ const posts = [
             "profileImage": "author-yuvaraj.jpg"
         },
         "date": "2024-10-09",
+        "image": "/images/blog/optimizing-react-speed-performance.png",
+        "imageAlt": "Developer workstation showing React component tree and performance analysis dashboards.",
+        "heroText": "React Speed",
         "content": {
             "introduction": {
                 "heading": "Introduction",
@@ -75,6 +80,9 @@ const posts = [
             "profileImage": "author-yuvaraj.jpg"
         },
         "date": "2024-09-15",
+        "image": "/images/blog/building-scalable-vuejs-applications.png",
+        "imageAlt": "Architectural blueprint view of Vue component systems scaling from small apps to enterprise layouts.",
+        "heroText": "Scale Vue",
         "content": {
             "introduction": {
                 "heading": "Introduction",
@@ -111,6 +119,9 @@ const posts = [
             "profileImage": "author-yuvaraj.jpg"
         },
         "date": "2024-08-22",
+        "image": "/images/blog/modern-javascript-features-every-developer-should-know.png",
+        "imageAlt": "Code editor scene highlighting modern JavaScript syntax with annotated optional chaining and nullish coalescing.",
+        "heroText": "Modern JS",
         "content": {
             "introduction": {
                 "heading": "Introduction",
@@ -147,6 +158,9 @@ const posts = [
             "profileImage": "author-yuvaraj.jpg"
         },
         "date": "2024-09-05",
+        "image": "/images/blog/nodejs-express-backend-development-guide.png",
+        "imageAlt": "Backend command center with API routes, middleware flow arrows, and server monitoring panels.",
+        "heroText": "Node Backend",
         "content": {
             "introduction": {
                 "heading": "Introduction",
@@ -198,6 +212,9 @@ const posts = [
             "profileImage": "author-yuvaraj.jpg"
         },
         "date": "2024-08-15",
+        "image": "/images/blog/rest-api-design-best-practices.png",
+        "imageAlt": "REST API contract board showing HTTP methods, status codes, and endpoint flow maps.",
+        "heroText": "REST Design",
         "content": {
             "introduction": {
                 "heading": "Introduction",
@@ -245,6 +262,9 @@ const posts = [
             "profileImage": "author-yuvaraj.jpg"
         },
         "date": "2024-07-28",
+        "image": "/images/blog/mongodb-vs-postgresql-nodejs-database-integration.png",
+        "imageAlt": "Split-screen database comparison of document and relational models with Node.js integration pipelines.",
+        "heroText": "Data Choices",
         "content": {
             "introduction": {
                 "heading": "Introduction",
@@ -296,6 +316,9 @@ const posts = [
             "profileImage": "author-yuvaraj.jpg"
         },
         "date": "2024-07-10",
+        "image": "/images/blog/jwt-authentication-nodejs-implementation.png",
+        "imageAlt": "Secure JWT authentication lifecycle with token issuance, validation, and request protection flow.",
+        "heroText": "JWT Auth",
         "content": {
             "introduction": {
                 "heading": "Introduction",
@@ -343,6 +366,9 @@ const posts = [
             "profileImage": "author-yuvaraj.jpg"
         },
         "date": "2024-06-20",
+        "image": "/images/blog/frontend-state-management-redux-context-zustand.png",
+        "imageAlt": "Three-lane state management comparison for Redux, Context API, and Zustand with data flow arrows.",
+        "heroText": "State Flow",
         "content": {
             "introduction": {
                 "heading": "Introduction",
@@ -394,6 +420,9 @@ const posts = [
             "profileImage": "author-yuvaraj.jpg"
         },
         "date": "2024-06-01",
+        "image": "/images/blog/fullstack-deployment-docker-cicd-cloud.png",
+        "imageAlt": "CI/CD pipeline scene with Docker containers, cloud deployment stages, and release health dashboards.",
+        "heroText": "Ship Faster",
         "content": {
             "introduction": {
                 "heading": "Introduction",
@@ -436,4 +465,6 @@ const posts = [
     }
 ];
 
-export default posts;
+const allPosts = [...transitionPosts, ...posts];
+
+export default allPosts;
