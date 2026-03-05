@@ -621,7 +621,7 @@ const SalesAnalyticsDemo = React.memo(function SalesAnalyticsDemo() {
             animate(revenue, 30000 + Math.random() * 30000, { duration: 0.8, ease: 'easeOut' });
         }, 1800);
         return () => clearInterval(t);
-    }, [revenue]);
+    }, [revenue, barData.length]);
 
     const bars = barData[frame];
     const barColors = ['var(--color-primary)', 'var(--color-accent)', 'var(--color-primary)', 'var(--color-accent)'];

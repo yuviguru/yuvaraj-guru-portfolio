@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faExternalLinkAlt,
-    faArrowUp,
     faLock,
     faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
