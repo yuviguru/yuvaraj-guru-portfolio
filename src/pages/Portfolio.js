@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faEnvelope, faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faEnvelope, faFileAlt, faLock } from '@fortawesome/free-solid-svg-icons';
 import PageTitle from '../components/PageTitle';
 import PageLayout from '../components/PageLayout';
 import SEO from '../components/SEO';
 import PageTransition from '../components/PageTransition';
 import FadeIn from '../components/motion/FadeIn';
 import ProjectCard from '../components/portfolio/ProjectCard';
+import ProjectDetailModal from '../components/portfolio/ProjectDetailModal';
 import { allProjects } from '../data/projects';
 
 const PAGE_PROPS = {
@@ -28,6 +29,7 @@ const STATS = [
 
 export default function Portfolio() {
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const [selectedProject, setSelectedProject] = useState(null);
 
     const filteredProjects = React.useMemo(() => {
         if (selectedCategory === 'All') return allProjects;
@@ -59,7 +61,7 @@ export default function Portfolio() {
                                 <span className="text-2xl">🚀</span>
                                 <div>
                                     <p className="text-sm font-semibold text-typography">
-                                        Open to freelance & consulting engagements
+                                        Open to full-time, freelance & consulting opportunities
                                     </p>
                                     <p className="text-xs text-typography-muted">
                                         Frontend architecture, product engineering, AI tooling
@@ -85,6 +87,13 @@ export default function Portfolio() {
                                 projects include live demos and source code.
                             </p>
                         </div>
+                    </FadeIn>
+
+                    {/* ── NDA note ── */}
+                    <FadeIn delay={0.08}>
+                        <p className="text-center text-xs text-typography-muted mb-4">
+                            Projects marked with a <FontAwesomeIcon icon={faLock} className="text-white/50 mx-0.5" /> are corporate engagements under NDA — live links and source code are not available for these.
+                        </p>
                     </FadeIn>
 
                     {/* ── Category filter ── */}
@@ -134,7 +143,7 @@ export default function Portfolio() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                         <AnimatePresence mode="popLayout">
                             {filteredProjects.map((project, index) => (
-                                <ProjectCard key={project.id} project={project} index={index} />
+                                <ProjectCard key={project.id} project={project} index={index} onProjectClick={setSelectedProject} />
                             ))}
                         </AnimatePresence>
                     </div>
@@ -198,6 +207,16 @@ export default function Portfolio() {
                     </FadeIn>
                 </div>
             </PageLayout>
+
+            {/* ── Project detail modal ── */}
+            <AnimatePresence>
+                {selectedProject && (
+                    <ProjectDetailModal
+                        project={selectedProject}
+                        onClose={() => setSelectedProject(null)}
+                    />
+                )}
+            </AnimatePresence>
         </PageTransition>
     );
 }

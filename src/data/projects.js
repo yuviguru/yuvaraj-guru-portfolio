@@ -239,8 +239,8 @@ export const personalProjects = [
         role: "Frontend Architect & Product Engineer",
         status: "live",
         demoType: "live",
-        demoComponentKey: null,
-        liveLink: "https://yuvarajguru.dev",
+        demoComponentKey: "portfolio",
+        liveLink: "https://yuvaraj-guru.com",
         githubLink: "https://github.com/yuviguru/yuvaraj-guru-portfolio",
         ndaProtected: false,
     },
@@ -262,7 +262,7 @@ export const personalProjects = [
         role: "Frontend Architect & Product Engineer",
         status: "live",
         demoType: "live",
-        demoComponentKey: null,
+        demoComponentKey: "productSearch",
         liveLink: "https://search.yuvaraj-guru.com",
         githubLink: "https://github.com/yuviguru/product-search-platform",
         ndaProtected: false,
@@ -285,7 +285,7 @@ export const personalProjects = [
         role: "Frontend Architect & Product Engineer",
         status: "live",
         demoType: "live",
-        demoComponentKey: null,
+        demoComponentKey: "salesAnalytics",
         liveLink: "https://dashboard.yuvaraj-guru.com",
         githubLink: "https://github.com/yuviguru/intelligent-sales-analytics",
         ndaProtected: false,
@@ -308,7 +308,7 @@ export const personalProjects = [
         role: "Frontend Developer",
         status: "live",
         demoType: "live",
-        demoComponentKey: null,
+        demoComponentKey: "gaming",
         liveLink: "https://j4f-games.netlify.app",
         githubLink: "https://github.com/yuviguru/J4F-Games",
         ndaProtected: false,
@@ -331,7 +331,7 @@ export const personalProjects = [
         role: "Frontend Developer",
         status: "live",
         demoType: "live",
-        demoComponentKey: null,
+        demoComponentKey: "staticSite",
         liveLink: "https://elegant-sunburst-213f79.netlify.app",
         githubLink: "https://github.com/yuviguru/go-smart-web",
         ndaProtected: false,
@@ -354,7 +354,7 @@ export const personalProjects = [
         role: "Frontend Architect",
         status: "live",
         demoType: "live",
-        demoComponentKey: null,
+        demoComponentKey: "marketing",
         liveLink: "https://getset-innovate.com",
         githubLink: null,
         ndaProtected: false,
@@ -377,7 +377,7 @@ export const personalProjects = [
         role: "Frontend Architect & Product Engineer",
         status: "live",
         demoType: "live",
-        demoComponentKey: null,
+        demoComponentKey: "lowCode",
         liveLink: null,
         githubLink: "https://github.com/yuviguru/drag-drop-low-code-builder",
         ndaProtected: false,
@@ -403,7 +403,7 @@ export const inProgressProjects = [
         role: "Founder & Lead Engineer",
         status: "in-progress",
         demoType: "wip",
-        demoComponentKey: null,
+        demoComponentKey: "talentOS",
         liveLink: null,
         githubLink: null,
         ndaProtected: false,
@@ -426,7 +426,7 @@ export const inProgressProjects = [
         role: "Lead Engineer",
         status: "in-progress",
         demoType: "wip",
-        demoComponentKey: null,
+        demoComponentKey: "examPortal",
         liveLink: null,
         githubLink: null,
         ndaProtected: false,
@@ -449,15 +449,50 @@ export const inProgressProjects = [
         role: "Lead Engineer",
         status: "in-progress",
         demoType: "wip",
-        demoComponentKey: null,
+        demoComponentKey: "helperBots",
         liveLink: null,
+        githubLink: null,
+        ndaProtected: false,
+    },
+    {
+        id: 20,
+        title: "GSI AI Studio",
+        category: "In Progress",
+        period: "2025-Present",
+        description: "An AI creation + learning platform for Indian kids (ages 8-17) that teaches AI literacy through hands-on creation. Kids build stories, music, quizzes, and games using AI tools while learning how AI works — aligned to the CBSE AI & Computational Thinking curriculum.",
+        technologies: ["React", "Claude API", "Netlify", "Firebase", "AI/ML APIs"],
+        achievements: [
+            "Story Studio, Music Lab, and Quiz & Game Maker creation tools",
+            "AI X-Ray learning layer explaining AI concepts behind each creation",
+            "Shareable creations with WhatsApp-optimized share cards",
+        ],
+        impactHeadline: "AI creation platform teaching Indian kids AI literacy through hands-on building",
+        type: "in-progress",
+        industry: "EdTech / AI",
+        role: "Founder & Lead Engineer",
+        status: "in-progress",
+        demoType: "wip",
+        demoComponentKey: "gsiAiStudio",
+        liveLink: "https://gsi-ai-studio.netlify.app/",
         githubLink: null,
         ndaProtected: false,
     },
 ];
 
+// Curated order: top 6 mix projects with live links and corporate work,
+// followed by remaining projects grouped by category.
 export const allProjects = [
-    ...professionalProjects,
-    ...personalProjects,
-    ...inProgressProjects,
+    // ── Top 6: alternating linked + corporate ──
+    personalProjects.find(p => p.id === 12),   // Sales Analytics Dashboard (live)
+    professionalProjects.find(p => p.id === 1), // European Loyalty Program (corporate)
+    personalProjects.find(p => p.id === 11),   // Product Search Platform (live)
+    professionalProjects.find(p => p.id === 2), // Hackathon Management Platform (corporate)
+    inProgressProjects.find(p => p.id === 20), // GSI AI Studio (live)
+    professionalProjects.find(p => p.id === 3), // Advanced E-commerce Search (corporate)
+    // ── Remaining corporate ──
+    ...professionalProjects.filter(p => ![1, 2, 3].includes(p.id)),
+    // ── Remaining personal ──
+    ...personalProjects.filter(p => ![11, 12].includes(p.id)),
+    // ── Remaining in-progress ──
+    ...inProgressProjects.filter(p => ![20].includes(p.id)),
 ];
