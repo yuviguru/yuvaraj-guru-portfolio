@@ -19,8 +19,8 @@ import {
 import { DEMO_REGISTRY } from './MiniDemos';
 
 // ─── Gradient cache ────────────────────────────────────────────────────────
-const gradientCache = {};
-const generateGradient = (title) => {
+export const gradientCache = {};
+export const generateGradient = (title) => {
     if (gradientCache[title]) return gradientCache[title];
     let hash = 0;
     for (let i = 0; i < title.length; i++) {
@@ -34,7 +34,7 @@ const generateGradient = (title) => {
 };
 
 // ─── Tech icons ────────────────────────────────────────────────────────────
-const techIcons = {
+export const techIcons = {
     React:     faReact,
     'Vue.js':  faVuejs,
     'Vue 3':   faVuejs,
@@ -183,18 +183,26 @@ function HoverAchievementsOverlay({ project }) {
 }
 
 // ─── Main ProjectCard ──────────────────────────────────────────────────────
-const ProjectCard = React.memo(function ProjectCard({ project, index }) {
+const ProjectCard = React.memo(function ProjectCard({ project, index, onProjectClick }) {
     const DemoComponent = DEMO_REGISTRY[project.demoComponentKey] || null;
     // Concept demos need more vertical space for Framer Motion animations
     const headerHeight = project.demoType === 'concept' ? 'h-44' : 'h-36';
 
+    const handleCardClick = (e) => {
+        // Don't open modal when clicking links
+        if (e.target.closest('a')) return;
+        onProjectClick?.(project);
+    };
+
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.3, delay: index * 0.04 }}
-            className="group"
+            transition={{ duration: 0.45, delay: (index % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="group cursor-pointer"
+            onClick={handleCardClick}
         >
             <div className="relative h-full bg-surface rounded-xl overflow-hidden border border-borderLight hover:border-primary/40 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 flex flex-col">
 
@@ -315,8 +323,8 @@ const ProjectCard = React.memo(function ProjectCard({ project, index }) {
                     {/* Hover hint — pushes to bottom */}
                     <div className="mt-auto pt-3 border-t border-borderLight">
                         <p className="text-[10px] text-typography-muted flex items-center gap-1 select-none">
-                            <span>Hover to see achievements</span>
-                            <FontAwesomeIcon icon={faArrowUp} className="text-[8px]" />
+                            <span>Click for full details</span>
+                            <span className="text-[8px]">→</span>
                         </p>
                     </div>
                 </div>

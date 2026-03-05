@@ -454,10 +454,45 @@ export const inProgressProjects = [
         githubLink: null,
         ndaProtected: false,
     },
+    {
+        id: 20,
+        title: "GSI AI Studio",
+        category: "In Progress",
+        period: "2025-Present",
+        description: "An AI creation + learning platform for Indian kids (ages 8-17) that teaches AI literacy through hands-on creation. Kids build stories, music, quizzes, and games using AI tools while learning how AI works — aligned to the CBSE AI & Computational Thinking curriculum.",
+        technologies: ["React", "Claude API", "Netlify", "Firebase", "AI/ML APIs"],
+        achievements: [
+            "Story Studio, Music Lab, and Quiz & Game Maker creation tools",
+            "AI X-Ray learning layer explaining AI concepts behind each creation",
+            "Shareable creations with WhatsApp-optimized share cards",
+        ],
+        impactHeadline: "AI creation platform teaching Indian kids AI literacy through hands-on building",
+        type: "in-progress",
+        industry: "EdTech / AI",
+        role: "Founder & Lead Engineer",
+        status: "in-progress",
+        demoType: "wip",
+        demoComponentKey: "gsiAiStudio",
+        liveLink: "https://gsi-ai-studio.netlify.app/",
+        githubLink: null,
+        ndaProtected: false,
+    },
 ];
 
+// Curated order: top 6 mix projects with live links and corporate work,
+// followed by remaining projects grouped by category.
 export const allProjects = [
-    ...professionalProjects,
-    ...personalProjects,
-    ...inProgressProjects,
+    // ── Top 6: alternating linked + corporate ──
+    personalProjects.find(p => p.id === 12),   // Sales Analytics Dashboard (live)
+    professionalProjects.find(p => p.id === 1), // European Loyalty Program (corporate)
+    personalProjects.find(p => p.id === 11),   // Product Search Platform (live)
+    professionalProjects.find(p => p.id === 2), // Hackathon Management Platform (corporate)
+    inProgressProjects.find(p => p.id === 20), // GSI AI Studio (live)
+    professionalProjects.find(p => p.id === 3), // Advanced E-commerce Search (corporate)
+    // ── Remaining corporate ──
+    ...professionalProjects.filter(p => ![1, 2, 3].includes(p.id)),
+    // ── Remaining personal ──
+    ...personalProjects.filter(p => ![11, 12].includes(p.id)),
+    // ── Remaining in-progress ──
+    ...inProgressProjects.filter(p => ![20].includes(p.id)),
 ];

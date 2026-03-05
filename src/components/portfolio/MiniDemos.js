@@ -962,6 +962,57 @@ const HelperBotsDemo = React.memo(function HelperBotsDemo() {
     );
 });
 
+// ─── 20. GSI AI Studio Demo ───────────────────────────────────────────────
+const GsiAiStudioDemo = React.memo(function GsiAiStudioDemo() {
+    const studios = [
+        { icon: '📖', label: 'Story' },
+        { icon: '🎵', label: 'Music' },
+        { icon: '🧩', label: 'Quiz' },
+        { icon: '🎮', label: 'Game' },
+    ];
+    const [active, setActive] = useState(0);
+
+    useEffect(() => {
+        const t = setInterval(() => setActive(s => (s + 1) % studios.length), 1400);
+        return () => clearInterval(t);
+    }, [studios.length]);
+
+    return (
+        <div className="space-y-3 py-2 px-2 w-full">
+            <div className="text-[9px] text-typography-muted text-center uppercase tracking-wider">AI Creation Studios</div>
+            <div className="flex items-center justify-around px-1">
+                {studios.map((studio, i) => (
+                    <motion.div
+                        key={studio.label}
+                        animate={{
+                            scale: active === i ? 1.25 : 0.9,
+                            opacity: active === i ? 1 : 0.5,
+                        }}
+                        transition={{ duration: 0.35 }}
+                        className="flex flex-col items-center gap-1"
+                    >
+                        <span className="text-lg">{studio.icon}</span>
+                        <span className="text-[8px] font-medium" style={{ color: active === i ? 'var(--color-primary)' : 'rgba(255,255,255,0.5)' }}>
+                            {studio.label}
+                        </span>
+                    </motion.div>
+                ))}
+            </div>
+            <div className="text-center">
+                <motion.div
+                    key={active}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-[8px] text-typography-muted"
+                >
+                    Creating with AI...
+                </motion.div>
+            </div>
+        </div>
+    );
+});
+
 // ─── Registry ──────────────────────────────────────────────────────────────
 export const DEMO_REGISTRY = {
     loyalty:       LoyaltyDemo,
@@ -985,4 +1036,5 @@ export const DEMO_REGISTRY = {
     talentOS:      TalentOSDemo,
     examPortal:    ExamPortalDemo,
     helperBots:    HelperBotsDemo,
+    gsiAiStudio:   GsiAiStudioDemo,
 };
