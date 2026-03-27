@@ -12,7 +12,9 @@ const THEME = {
 
 // ── SVG paths — Y integrated inside G ───────────────────────────────
 const G_PATH = 'M140 60 A60 60 0 1 0 140 140 M140 100 L170 100';
-const Y_PATH = 'M60 60 L100 100 L140 60 M100 100 L100 150';
+// Continuous path: left-arm → center → right-arm → back to center → stem
+// No M command at junction = no extra round linecap sphere
+const Y_PATH = 'M60 60 L100 100 L140 60 L100 100 L100 150';
 
 /**
  * Logo Component - Animated YG Monogram

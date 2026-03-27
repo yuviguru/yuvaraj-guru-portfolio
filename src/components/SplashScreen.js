@@ -21,14 +21,6 @@ const THEME = {
   white: '#ffffff',
 };
 
-// ── Orbit dots ──────────────────────────────────────────────────────
-// Using only violet palette
-const ORBIT_DOTS = [
-  { id: 0, angle: 0, opacity: 0.9, size: 6, color: THEME.primary },
-  { id: 1, angle: 120, opacity: 0.7, size: 5, color: THEME.primaryLight },
-  { id: 2, angle: 240, opacity: 0.55, size: 4, color: THEME.primaryLighter },
-];
-
 // ── Spark particles (burst outward after draw) ──────────────────────
 const createSparks = () =>
   Array.from({ length: 16 }, (_, i) => {
@@ -134,34 +126,7 @@ export default function SplashScreen() {
           </motion.div>
         </div>
 
-        {/* ── ORBIT DOTS ───────────────────────────────────────────── */}
-        <motion.div
-          className="absolute inset-0"
-          initial={{ rotate: 0 }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-        >
-          {ORBIT_DOTS.map((dot) => (
-            <motion.div
-              key={dot.id}
-              className="absolute rounded-full"
-              style={{
-                width: dot.size,
-                height: dot.size,
-                background: dot.color,
-                boxShadow: `0 0 18px ${dot.color}60`,
-                top: '50%',
-                left: '50%',
-                transformOrigin: '0 0',
-                transform: `rotate(${dot.angle}deg) translateX(108px) translateY(-50%)`,
-                opacity: dot.opacity,
-              }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: dot.opacity, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.8 + dot.id * 0.15 }}
-            />
-          ))}
-        </motion.div>
+        {/* ORBIT DOTS removed */}
 
         {/* ── SPARK BURST ──────────────────────────────────────────── */}
         {sparks.map((s) => (

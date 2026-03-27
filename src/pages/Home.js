@@ -57,7 +57,7 @@ function ScrollIndicator() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2, duration: 1 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+            className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2"
         >
             <Link
                 to="/about"
@@ -95,22 +95,22 @@ export default function Home() {
                 type="website"
             />
 
-            <div className="relative min-h-screen w-full flex items-center overflow-hidden">
+            <div className="relative min-h-screen w-full flex items-center">
                 {/* Hero gradient orbs — CSS-only for performance (no JS animation on blur) */}
-                <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
                     <div
-                        className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[80px] animate-[hero-pulse_8s_ease-in-out_infinite] will-change-[opacity]"
+                        className="absolute top-1/4 right-1/4 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] rounded-full blur-[80px] animate-[hero-pulse_8s_ease-in-out_infinite] will-change-[opacity]"
                         style={{ background: 'var(--color-primary)', transform: 'translateZ(0)' }}
                     />
                     <div
-                        className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full blur-[60px] animate-[hero-pulse_10s_ease-in-out_infinite_reverse] will-change-[opacity]"
+                        className="absolute bottom-1/4 left-1/4 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px] rounded-full blur-[60px] animate-[hero-pulse_10s_ease-in-out_infinite_reverse] will-change-[opacity]"
                         style={{ background: 'var(--color-accent)', transform: 'translateZ(0)' }}
                     />
                 </div>
 
                 {/* Content */}
-                <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-20 sm:py-12 lg:py-0">
+                    <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20">
 
                         {/* Text Content */}
                         <div className="flex-1 text-center lg:text-left order-2 lg:order-1">
@@ -129,7 +129,7 @@ export default function Home() {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                                className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-bold text-typography leading-tight mb-4"
+                                className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-typography leading-tight mb-4"
                             >
                                 {translations?.heading || "Yuvaraj Guru"}
                             </motion.h1>
@@ -139,7 +139,7 @@ export default function Home() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.5, duration: 0.5 }}
-                                className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-3xl xl:text-4xl font-semibold mb-6"
+                                className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl font-semibold mb-6"
                             >
                                 <AnimatedRole />
                             </motion.div>
@@ -208,7 +208,7 @@ export default function Home() {
                                     style={{ background: 'var(--color-primary)' }}
                                 />
                                 {/* Image */}
-                                <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-2 border-borderLight">
+                                <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-2 border-borderLight">
                                     <img
                                         src={profileImage}
                                         alt="Yuvaraj Guru - Frontend Architect & Product Engineer"

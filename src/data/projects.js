@@ -382,6 +382,52 @@ export const personalProjects = [
         githubLink: "https://github.com/yuviguru/drag-drop-low-code-builder",
         ndaProtected: false,
     },
+    {
+        id: 21,
+        title: "assign-to-claude",
+        category: "Open Source / Personal",
+        period: "2025",
+        description: "An npm package that connects any PM tool to Claude Code. Assign a ticket, get a PR — generates webhook servers and GitHub Actions workflows to wire project management tools to Claude Code for fully automated implementation.",
+        technologies: ["TypeScript", "Node.js", "GitHub Actions", "Claude Code", "npm"],
+        achievements: [
+            "Published npm package with interactive CLI setup",
+            "Supports Linear, Jira, Asana, and GitHub Issues integrations",
+            "End-to-end automation: ticket assignment → branch → implementation → PR",
+        ],
+        impactHeadline: "Assign a ticket, get a PR — fully automated dev workflow via Claude Code",
+        type: "personal",
+        industry: "Developer Tools",
+        role: "Creator & Maintainer",
+        status: "live",
+        demoType: "live",
+        demoComponentKey: "assignToClaude",
+        liveLink: "https://www.npmjs.com/package/assign-to-claude",
+        githubLink: "https://github.com/yuviguru/assign-to-claude",
+        ndaProtected: false,
+    },
+    {
+        id: 22,
+        title: "Keen & Ken — Vibe Refactor Service",
+        category: "Open Source / Personal",
+        period: "2025-Present",
+        description: "Company website for Keen & Ken, featuring Vibe Refactor — a service that takes vibe-coded sites and transforms them into production-ready applications with proper architecture, performance optimization, and full support.",
+        technologies: ["TypeScript", "Next.js", "Tailwind CSS", "Production Engineering"],
+        achievements: [
+            "Vibe Refactor service: fix, improve, and refactor vibe-coded sites for production",
+            "End-to-end support from code audit to deployment-ready output",
+            "Company site showcasing service offerings and case studies",
+        ],
+        impactHeadline: "Turning vibe-coded prototypes into production-ready applications",
+        type: "personal",
+        industry: "Developer Services",
+        role: "Founder",
+        status: "live",
+        demoType: "live",
+        demoComponentKey: "vibeRefactor",
+        liveLink: "https://keenken.com/viberefactor",
+        githubLink: "https://github.com/yuviguru/keen-and-ken-web",
+        ndaProtected: false,
+    },
 ];
 
 export const inProgressProjects = [
@@ -482,17 +528,19 @@ export const inProgressProjects = [
 // Curated order: top 6 mix projects with live links and corporate work,
 // followed by remaining projects grouped by category.
 export const allProjects = [
-    // ── Top 6: alternating linked + corporate ──
+    // ── Top: GSI first, assign-to-claude second, Keen & Ken third ──
+    inProgressProjects.find(p => p.id === 20), // GSI AI Studio (live)
+    personalProjects.find(p => p.id === 21),   // assign-to-claude (npm package)
+    personalProjects.find(p => p.id === 22),   // Keen & Ken — Vibe Refactor Service
     personalProjects.find(p => p.id === 12),   // Sales Analytics Dashboard (live)
     professionalProjects.find(p => p.id === 1), // European Loyalty Program (corporate)
     personalProjects.find(p => p.id === 11),   // Product Search Platform (live)
     professionalProjects.find(p => p.id === 2), // Hackathon Management Platform (corporate)
-    inProgressProjects.find(p => p.id === 20), // GSI AI Studio (live)
     professionalProjects.find(p => p.id === 3), // Advanced E-commerce Search (corporate)
     // ── Remaining corporate ──
     ...professionalProjects.filter(p => ![1, 2, 3].includes(p.id)),
     // ── Remaining personal ──
-    ...personalProjects.filter(p => ![11, 12].includes(p.id)),
+    ...personalProjects.filter(p => ![11, 12, 21, 22].includes(p.id)),
     // ── Remaining in-progress ──
     ...inProgressProjects.filter(p => ![20].includes(p.id)),
 ];
