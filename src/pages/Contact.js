@@ -200,7 +200,7 @@ export default function Contact() {
             <PageTitle {...props}></PageTitle>
             <div className="max-w-6xl mx-auto text-typography mt-8 pb-20">
                 <div className="flex flex-col lg:flex-row">
-                    <div className="lg:w-1/3 w-full px-8">
+                    <div className="lg:w-1/3 w-full px-4 sm:px-8">
                         <h3 className="text-2xl mb-4 font-bold uppercase">Don't be shy!</h3>
                         <p className="mb-6 text-md">Feel free to get in touch with me. I am always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
 
@@ -233,7 +233,7 @@ export default function Contact() {
                         </ul>
                     </div>
 
-                    <div className="lg:w-2/3 w-full px-8">
+                    <div className="lg:w-2/3 w-full px-4 sm:px-8">
                         <form id="contactform" className="contactform" onSubmit={handleSubmit}>
                             <div className="flex flex-wrap">
                                 {contactFormFields.map((field, index) => (

@@ -1013,6 +1013,122 @@ const GsiAiStudioDemo = React.memo(function GsiAiStudioDemo() {
     );
 });
 
+// ─── 21. assign-to-claude Demo ────────────────────────────────────────────
+const AssignToClaudeDemo = React.memo(function AssignToClaudeDemo() {
+    const steps = [
+        { icon: '🎫', label: 'Ticket Assigned' },
+        { icon: '🔀', label: 'Branch Created' },
+        { icon: '🤖', label: 'Claude Coding' },
+        { icon: '✅', label: 'PR Opened' },
+    ];
+    const [active, setActive] = useState(0);
+
+    useEffect(() => {
+        const t = setInterval(() => setActive(s => (s + 1) % steps.length), 1400);
+        return () => clearInterval(t);
+    }, [steps.length]);
+
+    return (
+        <div className="pt-8 pb-0 px-3 w-full">
+            <div className="space-y-0.5">
+                {steps.map((step, i) => (
+                    <motion.div
+                        key={step.label}
+                        initial={{ opacity: 0, x: -12 }}
+                        animate={{
+                            opacity: i <= active ? 1 : 0.25,
+                            x: 0,
+                            scale: i === active ? 1.02 : 1,
+                        }}
+                        transition={{ delay: 0.2 + i * 0.15, duration: 0.3 }}
+                        className="flex items-center gap-2 rounded-md px-2 py-0.5 border"
+                        style={{
+                            borderColor: i <= active ? 'var(--color-primary)' : 'var(--color-border)',
+                            background: i === active ? 'var(--color-primary)12' : 'transparent',
+                        }}
+                    >
+                        <span className="text-[10px]">{step.icon}</span>
+                        <span className="text-[9px] font-medium" style={{ color: i <= active ? 'var(--color-primary)' : 'var(--color-typography-muted)' }}>
+                            {step.label}
+                        </span>
+                        {i < active && (
+                            <motion.span
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className="ml-auto text-[8px] text-green-400"
+                            >
+                                ✓
+                            </motion.span>
+                        )}
+                        {i === active && (
+                            <motion.div
+                                animate={{ opacity: [0.3, 1, 0.3] }}
+                                transition={{ duration: 1.2, repeat: Infinity }}
+                                className="ml-auto w-1.5 h-1.5 rounded-full bg-primary"
+                            />
+                        )}
+                    </motion.div>
+                ))}
+            </div>
+        </div>
+    );
+});
+
+// ─── 22. Vibe Refactor Demo ───────────────────────────────────────────────
+const VibeRefactorDemo = React.memo(function VibeRefactorDemo() {
+    const [phase, setPhase] = useState(0);
+    const phases = [
+        { label: 'Vibe Code', quality: 35, color: '#ef4444' },
+        { label: 'Audit', quality: 55, color: '#f59e0b' },
+        { label: 'Refactor', quality: 80, color: '#a78bfa' },
+        { label: 'Production', quality: 98, color: '#34d399' },
+    ];
+
+    useEffect(() => {
+        const t = setInterval(() => setPhase(s => (s + 1) % phases.length), 1600);
+        return () => clearInterval(t);
+    }, [phases.length]);
+
+    const current = phases[phase];
+
+    return (
+        <div className="pt-8 pb-0 px-3 w-full">
+            <div className="text-center mb-1.5">
+                <div className="text-[9px] font-mono text-typography-muted uppercase tracking-wider">{current.label}</div>
+            </div>
+            <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden mb-1">
+                <motion.div
+                    className="h-full rounded-full"
+                    animate={{ width: `${current.quality}%`, backgroundColor: current.color }}
+                    transition={{ duration: 0.8, ease: 'easeOut' }}
+                />
+            </div>
+            <div className="flex justify-between text-[8px] text-typography-muted mb-1.5">
+                <span>Code Quality</span>
+                <motion.span
+                    key={current.quality}
+                    initial={{ scale: 1.3 }}
+                    animate={{ scale: 1 }}
+                    style={{ color: current.color }}
+                    className="font-mono font-bold"
+                >
+                    {current.quality}%
+                </motion.span>
+            </div>
+            <div className="flex justify-between gap-0.5">
+                {phases.map((p, i) => (
+                    <motion.div
+                        key={p.label}
+                        animate={{ opacity: i <= phase ? 1 : 0.3 }}
+                        className="flex-1 h-1 rounded-full"
+                        style={{ background: i <= phase ? p.color : 'rgba(255,255,255,0.1)' }}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+});
+
 // ─── Registry ──────────────────────────────────────────────────────────────
 export const DEMO_REGISTRY = {
     loyalty:       LoyaltyDemo,
@@ -1037,4 +1153,6 @@ export const DEMO_REGISTRY = {
     examPortal:    ExamPortalDemo,
     helperBots:    HelperBotsDemo,
     gsiAiStudio:   GsiAiStudioDemo,
+    assignToClaude: AssignToClaudeDemo,
+    vibeRefactor: VibeRefactorDemo,
 };

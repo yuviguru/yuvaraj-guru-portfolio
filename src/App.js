@@ -47,7 +47,7 @@ function App() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, prefersReduced ? 0 : 3000); // Sync with navbar logo appearance for seamless transition
+    }, prefersReduced ? 0 : 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -61,7 +61,7 @@ function App() {
                 <AnimatePresence mode="wait">
                   {showSplash && <SplashScreen />}
                 </AnimatePresence>
-                <div className={`yuvaraj-guru-portfolio min-h-screen bg-background font-sans text-typography transition-colors duration-300 ${showSplash ? 'overflow-hidden' : ''}`}>
+                <div className={`yuvaraj-guru-portfolio min-h-screen bg-background font-sans text-typography transition-colors duration-300 overflow-x-hidden ${showSplash ? 'overflow-hidden' : ''}`}>
                   <BackgroundEffects />
                   <ScrollProgress />
                   <CustomCursor />
