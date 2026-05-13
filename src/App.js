@@ -10,6 +10,7 @@ import ScrollProgress from './components/ScrollProgress';
 import CustomCursor from './components/CustomCursor';
 import LoadingSpinner from './components/LoadingSpinner';
 import SplashScreen from './components/SplashScreen';
+import FloatingResumeButton from './components/FloatingResumeButton';
 import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
 // Lazy load pages for better performance
@@ -66,6 +67,7 @@ function App() {
                   <ScrollProgress />
                   <CustomCursor />
                   <NavBar showSplash={showSplash} />
+                  <FloatingResumeButton showSplash={showSplash} />
                   <Suspense fallback={
                     <div className="flex items-center justify-center min-h-screen">
                       <LoadingSpinner />
