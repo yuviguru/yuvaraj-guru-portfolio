@@ -1,17 +1,17 @@
 // App.js
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AnimatePresence, LayoutGroup } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import NavBar from './components/NavBar';
+import SiteFooter from './components/SiteFooter';
 import ErrorBoundary from './components/ErrorBoundary';
-import BackgroundEffects from './components/BackgroundEffects';
-import ScrollProgress from './components/ScrollProgress';
 import CustomCursor from './components/CustomCursor';
 import LoadingSpinner from './components/LoadingSpinner';
-import SplashScreen from './components/SplashScreen';
+import Preloader, { shouldShowPreloader } from './components/Preloader';
+import SmoothScroll from './components/SmoothScroll';
 import { LanguageProvider } from './context/LanguageContext';
-import { ThemeProvider } from './context/ThemeContext';
+import { SiteReadyContext } from './context/SiteReadyContext';
 // Lazy load pages for better performance
 const Home = React.lazy(() => import('./pages/Home'));
 const About = React.lazy(() => import('./pages/About'));
@@ -41,43 +41,38 @@ function AnimatedRoutes() {
 }
 
 function App() {
-  const [showSplash, setShowSplash] = useState(true);
-
-  useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-    }, prefersReduced ? 0 : 3000);
-    return () => clearTimeout(timer);
-  }, []);
+  const [showPreloader, setShowPreloader] = useState(shouldShowPreloader);
+  const handlePreloaderDone = useCallback(() => setShowPreloader(false), []);
 
   return (
     <HelmetProvider>
       <ErrorBoundary>
-        <ThemeProvider>
-          <LanguageProvider>
-            <Router>
-              <LayoutGroup id="logo-handoff">
-                <AnimatePresence mode="wait">
-                  {showSplash && <SplashScreen />}
+        <LanguageProvider>
+          <Router>
+            <SmoothScroll>
+              <SiteReadyContext.Provider value={!showPreloader}>
+                <AnimatePresence>
+                  {showPreloader && <Preloader onDone={handlePreloaderDone} />}
                 </AnimatePresence>
-                <div className={`yuvaraj-guru-portfolio min-h-screen bg-background font-sans text-typography transition-colors duration-300 overflow-x-hidden ${showSplash ? 'overflow-hidden' : ''}`}>
-                  <BackgroundEffects />
-                  <ScrollProgress />
+                <div className="yuvaraj-guru-portfolio min-h-screen bg-background font-sans text-typography overflow-x-clip">
+                  <div aria-hidden="true" className="grain animate-grain" />
                   <CustomCursor />
-                  <NavBar showSplash={showSplash} />
+                  <NavBar />
                   <Suspense fallback={
                     <div className="flex items-center justify-center min-h-screen">
                       <LoadingSpinner />
                     </div>
                   }>
-                    <AnimatedRoutes />
+                    <main>
+                      <AnimatedRoutes />
+                    </main>
                   </Suspense>
+                  <SiteFooter />
                 </div>
-              </LayoutGroup>
-            </Router>
-          </LanguageProvider>
-        </ThemeProvider>
+              </SiteReadyContext.Provider>
+            </SmoothScroll>
+          </Router>
+        </LanguageProvider>
       </ErrorBoundary>
     </HelmetProvider>
   );

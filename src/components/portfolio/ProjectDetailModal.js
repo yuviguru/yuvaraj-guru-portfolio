@@ -9,6 +9,7 @@ import {
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { generateGradient, techIcons } from './ProjectCard';
 import { DEMO_REGISTRY } from './MiniDemos';
+import { useLenis } from '../SmoothScroll';
 
 // ─── Status badge (reused from ProjectCard) ─────────────────────────────────
 function StatusBadge({ status }) {
@@ -24,11 +25,13 @@ function StatusBadge({ status }) {
 // ─── Main Modal ─────────────────────────────────────────────────────────────
 export default function ProjectDetailModal({ project, onClose }) {
     const DemoComponent = DEMO_REGISTRY[project.demoComponentKey] || null;
+    const lenis = useLenis();
 
     // Lock body scroll & handle Escape
     useEffect(() => {
         const prev = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
+        lenis?.stop();
 
         const handleKey = (e) => {
             if (e.key === 'Escape') onClose();
@@ -37,9 +40,10 @@ export default function ProjectDetailModal({ project, onClose }) {
 
         return () => {
             document.body.style.overflow = prev;
+            lenis?.start();
             window.removeEventListener('keydown', handleKey);
         };
-    }, [onClose]);
+    }, [onClose, lenis]);
 
     return (
         <>
@@ -57,6 +61,7 @@ export default function ProjectDetailModal({ project, onClose }) {
             <div
                 className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto py-8 px-4 sm:py-12"
                 onClick={onClose}
+                data-lenis-prevent
             >
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -222,7 +227,7 @@ export default function ProjectDetailModal({ project, onClose }) {
                                     href={project.liveLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors"
+                                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-ink rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors"
                                 >
                                     <FontAwesomeIcon icon={faExternalLinkAlt} className="text-xs" />
                                     View Live

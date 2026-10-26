@@ -121,7 +121,7 @@ export default function Blog() {
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => setSelectedTag('')}
                                 className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${!selectedTag
-                                    ? 'bg-primary text-white'
+                                    ? 'bg-primary text-ink'
                                     : 'bg-surface text-typography opacity-70 hover:opacity-100 border border-borderLight'
                                     }`}
                             >
@@ -134,7 +134,7 @@ export default function Blog() {
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => setSelectedTag(tag)}
                                     className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${selectedTag === tag
-                                        ? 'bg-primary text-white'
+                                        ? 'bg-primary text-ink'
                                         : 'bg-surface text-typography opacity-70 hover:opacity-100 border border-borderLight'
                                         }`}
                                 >
@@ -254,7 +254,7 @@ export default function Blog() {
                                     disabled={currentPage === 1}
                                     className={`px-4 py-2 rounded-lg transition-all duration-300 ${currentPage === 1
                                         ? 'bg-surface text-typography opacity-50 cursor-not-allowed'
-                                        : 'bg-surface text-typography hover:bg-primary hover:text-white'
+                                        : 'bg-surface text-typography hover:bg-primary hover:text-ink'
                                         }`}
                                 >
                                     Previous
@@ -270,8 +270,8 @@ export default function Blog() {
                                             whileTap={{ scale: 0.9 }}
                                             onClick={() => setCurrentPage(page)}
                                             className={`w-10 h-10 transition-all duration-300 text-center flex items-center justify-center rounded-full ${currentPage === page
-                                                ? 'bg-primary text-white font-bold'
-                                                : 'bg-surface text-typography hover:bg-primary hover:text-white'
+                                                ? 'bg-primary text-ink font-bold'
+                                                : 'bg-surface text-typography hover:bg-primary hover:text-ink'
                                                 }`}
                                         >
                                             {page}
@@ -288,7 +288,7 @@ export default function Blog() {
                                     disabled={currentPage === totalPages}
                                     className={`px-4 py-2 rounded-lg transition-all duration-300 ${currentPage === totalPages
                                         ? 'bg-surface text-typography opacity-50 cursor-not-allowed'
-                                        : 'bg-surface text-typography hover:bg-primary hover:text-white'
+                                        : 'bg-surface text-typography hover:bg-primary hover:text-ink'
                                         }`}
                                 >
                                     Next

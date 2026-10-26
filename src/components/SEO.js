@@ -130,8 +130,8 @@ const SEO = ({
             <meta property="linkedin:owner" content="yuvaraj-guru" />
 
             {/* Additional SEO Meta Tags */}
-            <meta name="theme-color" content="#a78bfa" />
-            <meta name="msapplication-TileColor" content="#a78bfa" />
+            <meta name="theme-color" content="#050505" />
+            <meta name="msapplication-TileColor" content="#050505" />
             <meta name="msapplication-config" content="/browserconfig.xml" />
 
             {/* Canonical URL */}

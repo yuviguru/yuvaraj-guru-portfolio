@@ -1,182 +1,166 @@
 // NavBar.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import NavItem from './NavItem';
-import Logo, { LOGO_LAYOUT_ID } from './Logo';
-import { faHome, faUser, faBriefcase, faEnvelope, faBlog, faBars, faTimes, faPalette } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useLocation } from 'react-router-dom';
-import ThemeSwitcher from './ThemeSwitcher';
+import { scrollToTarget, useLenis } from './SmoothScroll';
+import resumePdf from '../assets/Yuvaraj_Guru_CV.pdf';
 
-// Mobile Navigation Item Component
-function MobileNavItem({ name, icon, link }) {
-    const location = useLocation();
-    const isActive = location.pathname === link ||
-        (link !== '/' && location.pathname.startsWith(link));
+export const NAV_LINKS = [
+    { name: 'Home', to: '/' },
+    { name: 'Work', to: '/portfolio' },
+    { name: 'About', to: '/about' },
+    { name: 'Writing', to: '/blog' },
+    { name: 'Contact', to: '/contact' },
+];
 
+const SECONDARY_LINKS = [
+    { name: 'Design System', to: '/design-system' },
+    { name: 'Resume', href: resumePdf },
+    { name: 'GitHub', href: 'https://github.com/yuviguru' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/yuvaraj-guru/' },
+];
+
+const EASE = [0.22, 1, 0.36, 1];
+
+export function Wordmark({ className = '' }) {
     return (
-        <Link
-            to={link}
-            className={`flex items-center gap-4 p-3 rounded-xl transition-all duration-200 no-underline ${isActive
-                ? 'bg-primary text-white'
-                : 'text-typography hover:bg-navPillsBg'
-                }`}
-        >
-            <div className="w-8 h-8 flex justify-center items-center">
-                <FontAwesomeIcon icon={icon} size="lg" />
-            </div>
-            <span className="text-base font-heading font-medium">{name}</span>
-        </Link>
+        <span className={`font-display font-bold tracking-[0.04em] leading-none ${className}`}>
+            GURU
+        </span>
     );
 }
 
-export default function NavBar({ showSplash = false }) {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+export default function NavBar() {
+    const [open, setOpen] = useState(false);
     const location = useLocation();
+    const lenis = useLenis();
+    const menuRef = useRef(null);
 
-    const navItems = [
-        { name: 'Home', icon: faHome, link: '/' },
-        { name: 'About', icon: faUser, link: '/about' },
-        { name: 'Portfolio', icon: faBriefcase, link: '/portfolio' },
-        { name: 'Blog', icon: faBlog, link: '/blog' },
-        { name: 'Contact', icon: faEnvelope, link: '/contact' },
-        { name: 'Design System', icon: faPalette, link: '/design-system' },
-    ];
-
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
-
-    const closeMobileMenu = () => {
-        setIsMobileMenuOpen(false);
-    };
-
-    // Close mobile menu when route changes
     useEffect(() => {
-        setIsMobileMenuOpen(false);
+        setOpen(false);
     }, [location.pathname]);
 
-    // Prevent body scroll when mobile menu is open
     useEffect(() => {
-        if (isMobileMenuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-        return () => {
-            document.body.style.overflow = 'unset';
+        if (!open) return undefined;
+        const onKey = (e) => e.key === 'Escape' && setOpen(false);
+        const onClick = (e) => {
+            if (menuRef.current && !menuRef.current.contains(e.target)) setOpen(false);
         };
-    }, [isMobileMenuOpen]);
+        document.addEventListener('keydown', onKey);
+        document.addEventListener('mousedown', onClick);
+        return () => {
+            document.removeEventListener('keydown', onKey);
+            document.removeEventListener('mousedown', onClick);
+        };
+    }, [open]);
+
+    const isActive = (to) => (to === '/' ? location.pathname === '/' : location.pathname.startsWith(to));
+
+    const goHome = (e) => {
+        if (location.pathname === '/') {
+            e.preventDefault();
+            scrollToTarget(lenis, 0);
+        }
+        setOpen(false);
+    };
 
     return (
-        <>
-            {/* Desktop Navigation - Logo integrated at the top */}
-            <aside className="hidden lg:flex fixed top-0 right-0 z-40 h-screen p-6 items-center justify-center">
-                <nav>
-                    <ul className="flex flex-col gap-4 items-end">
-                        {/* Logo at top of right navigation */}
-                        <motion.li
-                            initial={false}
-                            animate={{ opacity: showSplash ? 0 : 1 }}
-                            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                            className="mb-6 min-h-[48px] w-12 self-end flex items-center justify-center"
-                        >
-                            {!showSplash && (
-                                <Link to="/" className="flex items-center justify-center no-underline group" aria-label="Home">
-                                    <motion.div
-                                        layoutId={LOGO_LAYOUT_ID}
-                                        transition={{ type: 'spring', stiffness: 260, damping: 28, mass: 0.9 }}
-                                        className="w-12 h-12 flex items-center justify-center"
-                                    >
-                                        <Logo size="nav" animate={false} showGlow={true} />
-                                    </motion.div>
-                                </Link>
-                            )}
-                        </motion.li>
-                        {navItems.map((item) => (
-                            <NavItem
-                                key={item.link}
-                                name={item.name}
-                                icon={item.icon}
-                                link={item.link}
-                            />
-                        ))}
-                        <li className="mt-4">
-                            <ThemeSwitcher />
-                        </li>
-                    </ul>
-                </nav>
-            </aside>
-
-            {/* Mobile Navigation */}
-            <div className="lg:hidden">
-                {/* Mobile Menu Button */}
-                <motion.button
-                    onClick={toggleMobileMenu}
-                    whileTap={{ scale: 0.9 }}
-                    className="fixed top-4 right-4 z-50 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white shadow-lg shadow-primary/25"
-                    aria-label="Toggle mobile menu"
+        <header className="fixed top-0 inset-x-0 z-50 pointer-events-none">
+            <div className="flex items-center justify-between px-5 md:px-12 pt-4 md:pt-5">
+                <Link
+                    to="/"
+                    onClick={goHome}
+                    aria-label="Yuvaraj Guru, home"
+                    className="pointer-events-auto text-cream text-[22px] md:text-[26px] no-underline hover:text-ember transition-colors duration-300"
                 >
-                    <FontAwesomeIcon
-                        icon={isMobileMenuOpen ? faTimes : faBars}
-                        size="lg"
-                    />
-                </motion.button>
+                    <Wordmark />
+                </Link>
 
-                {/* Mobile Menu Overlay */}
-                <AnimatePresence>
-                    {isMobileMenuOpen && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
-                            onClick={closeMobileMenu}
-                        />
-                    )}
-                </AnimatePresence>
+                <div ref={menuRef} className="relative pointer-events-auto">
+                    <button
+                        type="button"
+                        onClick={() => setOpen((v) => !v)}
+                        aria-expanded={open}
+                        aria-controls="site-menu"
+                        className="group flex items-center gap-4 rounded-full bg-smoke/80 backdrop-blur-md border border-white/10 pl-6 pr-1.5 py-1.5 text-cream shadow-[0_8px_30px_rgba(0,0,0,0.45)]"
+                    >
+                        <span className="font-heading text-[11px] font-medium tracking-[0.22em] w-12 text-left">
+                            {open ? 'CLOSE' : 'MENU'}
+                        </span>
+                        <span className="relative w-9 h-9 rounded-full bg-white/10 group-hover:bg-ember/80 transition-colors duration-300 flex items-center justify-center">
+                            <motion.span
+                                animate={{ rotate: open ? 90 : 0 }}
+                                transition={{ duration: 0.4, ease: EASE }}
+                                className="flex flex-col gap-[3px]"
+                            >
+                                <span className="block w-[3px] h-[3px] rounded-full bg-cream" />
+                                <span className="block w-[3px] h-[3px] rounded-full bg-cream" />
+                            </motion.span>
+                        </span>
+                    </button>
 
-                {/* Mobile Menu Sidebar */}
-                <AnimatePresence>
-                    {isMobileMenuOpen && (
-                        <motion.aside
-                            initial={{ x: '100%' }}
-                            animate={{ x: 0 }}
-                            exit={{ x: '100%' }}
-                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                            className="fixed top-0 right-0 z-40 h-screen w-full sm:w-80 bg-background/95 backdrop-blur-xl border-l border-borderLight shadow-2xl"
-                        >
-                            <div className="p-6 pt-20">
-                                {/* Theme Switcher */}
-                                <div className="mb-8 flex justify-center">
-                                    <ThemeSwitcher />
-                                </div>
-
-                                {/* Navigation Items */}
-                                <nav>
-                                    <ul className="flex flex-col gap-2">
-                                        {navItems.map((item, index) => (
-                                            <motion.li
-                                                key={item.link}
-                                                initial={{ opacity: 0, x: 20 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: index * 0.05 }}
-                                                onClick={closeMobileMenu}
+                    <AnimatePresence>
+                        {open && (
+                            <motion.nav
+                                id="site-menu"
+                                aria-label="Main"
+                                initial={{ opacity: 0, y: -12, scale: 0.97, filter: 'blur(6px)' }}
+                                animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                                exit={{ opacity: 0, y: -8, scale: 0.98, filter: 'blur(4px)' }}
+                                transition={{ duration: 0.35, ease: EASE }}
+                                style={{ transformOrigin: 'top right' }}
+                                className="absolute right-0 top-[calc(100%+12px)] w-[min(calc(100vw-40px),440px)] rounded-[22px] bg-smoke/95 backdrop-blur-xl border border-white/10 px-7 py-6 md:px-9 md:py-8 shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
+                            >
+                                <ul className="flex flex-col">
+                                    {NAV_LINKS.map((item, i) => (
+                                        <motion.li
+                                            key={item.to}
+                                            initial={{ opacity: 0, y: 14 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.05 + i * 0.04, duration: 0.4, ease: EASE }}
+                                        >
+                                            <Link
+                                                to={item.to}
+                                                onClick={item.to === '/' ? goHome : () => setOpen(false)}
+                                                className={`group flex items-center justify-between py-2 font-heading text-[34px] md:text-[42px] leading-tight no-underline transition-colors duration-300 ${isActive(item.to) ? 'text-ember' : 'text-cream hover:text-ember'}`}
                                             >
-                                                <MobileNavItem
-                                                    name={item.name}
-                                                    icon={item.icon}
-                                                    link={item.link}
-                                                />
-                                            </motion.li>
-                                        ))}
-                                    </ul>
-                                </nav>
-                            </div>
-                        </motion.aside>
-                    )}
-                </AnimatePresence>
+                                                {item.name}
+                                                <span className="text-base opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                                                    ↗
+                                                </span>
+                                            </Link>
+                                        </motion.li>
+                                    ))}
+                                </ul>
+                                <div className="mt-5 pt-5 border-t border-white/10 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11px] tracking-[0.18em] uppercase text-cream/55">
+                                    {SECONDARY_LINKS.map((item) =>
+                                        item.to ? (
+                                            <Link
+                                                key={item.name}
+                                                to={item.to}
+                                                onClick={() => setOpen(false)}
+                                                className="hover:text-ember transition-colors no-underline"
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        ) : (
+                                            <a
+                                                key={item.name}
+                                                href={item.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="hover:text-ember transition-colors no-underline"
+                                            >
+                                                {item.name}
+                                            </a>
+                                        )
+                                    )}
+                                </div>
+                            </motion.nav>
+                        )}
+                    </AnimatePresence>
+                </div>
             </div>
-        </>
+        </header>
     );
 }

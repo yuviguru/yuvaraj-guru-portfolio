@@ -16,7 +16,7 @@ export default function Button({ text, icon, disabled = false, className = "" })
             <span className="relative z-20 text-typography font-heading font-semibold uppercase text-sm tracking-wide">
                 {text}
             </span>
-            <span className="absolute right-0 bottom-0 w-[49px] h-[49px] bg-primary rounded-full text-white flex items-center justify-center group-hover:bg-white group-hover:text-primary transition-colors duration-300">
+            <span className="absolute right-0 bottom-0 w-[49px] h-[49px] bg-primary rounded-full text-ink flex items-center justify-center group-hover:bg-white group-hover:text-primary transition-colors duration-300">
                 <FontAwesomeIcon
                     icon={icon}
                     size="lg"
