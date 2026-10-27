@@ -20,19 +20,19 @@ const PageLayout = ({
     const getPaddingClass = () => {
         switch (paddingTop) {
             case "large":
-                return "pt-24 lg:pt-16";
+                return "pt-32 lg:pt-40";
             case "small":
-                return "pt-8 lg:pt-12";
+                return "pt-24 lg:pt-28";
             case "none":
                 return "";
             default:
-                return "pt-16 lg:pt-20";
+                return "pt-28 lg:pt-36";
         }
     };
 
     return (
         <div className={`min-h-screen bg-background ${getPaddingClass()} ${className}`}>
-            <div className={`${getContainerClass()} mx-auto px-4 sm:px-6 lg:px-8`}>
+            <div className={`${getContainerClass()} mx-auto px-5 sm:px-8 lg:px-12`}>
                 {children}
             </div>
         </div>

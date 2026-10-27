@@ -52,15 +52,16 @@ const colorGroups = [
 /*  DATA: Typography Scale                                            */
 /* ------------------------------------------------------------------ */
 const typographyScale = [
-    { tag: 'H1', className: 'text-5xl lg:text-6xl', font: 'Sora', weight: 800, size: '48 / 60 px', lineHeight: '1.1', sample: 'Design System' },
-    { tag: 'H2', className: 'text-4xl lg:text-5xl', font: 'Sora', weight: 700, size: '36 / 48 px', lineHeight: '1.15', sample: 'Section Heading' },
-    { tag: 'H3', className: 'text-3xl', font: 'Sora', weight: 700, size: '30 px', lineHeight: '1.2', sample: 'Card Title' },
-    { tag: 'H4', className: 'text-2xl', font: 'Sora', weight: 600, size: '24 px', lineHeight: '1.25', sample: 'Sub-heading' },
-    { tag: 'H5', className: 'text-xl', font: 'Sora', weight: 600, size: '20 px', lineHeight: '1.3', sample: 'Label Large' },
-    { tag: 'H6', className: 'text-lg', font: 'Sora', weight: 600, size: '18 px', lineHeight: '1.4', sample: 'Label Medium' },
-    { tag: 'Body', className: 'text-base', font: 'DM Sans', weight: 400, size: '16 px', lineHeight: '1.6', sample: 'Body text used in paragraphs, descriptions, and general content across the portfolio.' },
-    { tag: 'Small', className: 'text-sm', font: 'DM Sans', weight: 400, size: '14 px', lineHeight: '1.5', sample: 'Caption text for secondary information and metadata.' },
-    { tag: 'Code', className: 'text-sm', font: 'Fira Code', weight: 400, size: '14 px', lineHeight: '1.6', sample: 'const theme = getDesignTokens();' },
+    { tag: 'Display', className: 'text-5xl lg:text-7xl uppercase', font: 'Chubbo', weight: 700, size: '48 / 72 px', lineHeight: '0.95', sample: 'Pixel to pipeline' },
+    { tag: 'H1', className: 'text-5xl lg:text-6xl', font: 'Cabinet Grotesk', weight: 800, size: '48 / 60 px', lineHeight: '1.1', sample: 'Design System' },
+    { tag: 'H2', className: 'text-4xl lg:text-5xl', font: 'Cabinet Grotesk', weight: 700, size: '36 / 48 px', lineHeight: '1.15', sample: 'Section Heading' },
+    { tag: 'H3', className: 'text-3xl', font: 'Cabinet Grotesk', weight: 700, size: '30 px', lineHeight: '1.2', sample: 'Card Title' },
+    { tag: 'H4', className: 'text-2xl', font: 'Cabinet Grotesk', weight: 500, size: '24 px', lineHeight: '1.25', sample: 'Sub-heading' },
+    { tag: 'Voice', className: 'text-2xl italic', font: 'Bespoke Serif', weight: 400, size: '24 px', lineHeight: '1.3', sample: 'interfaces people trust, automations that run themselves.' },
+    { tag: 'Body', className: 'text-base', font: 'Satoshi', weight: 400, size: '16 px', lineHeight: '1.6', sample: 'Body text used in paragraphs, descriptions, and general content across the portfolio.' },
+    { tag: 'Small', className: 'text-sm', font: 'Satoshi', weight: 400, size: '14 px', lineHeight: '1.5', sample: 'Caption text for secondary information and metadata.' },
+    { tag: 'Label', className: 'text-xs uppercase tracking-[0.3em]', font: 'JetBrains Mono', weight: 400, size: '11 px', lineHeight: '1.6', sample: '(02) · Selected work' },
+    { tag: 'Code', className: 'text-sm', font: 'JetBrains Mono', weight: 400, size: '14 px', lineHeight: '1.6', sample: 'const theme = getDesignTokens();' },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -78,24 +79,24 @@ const spacingScale = [
 ];
 
 /* ------------------------------------------------------------------ */
-/*  DATA: Design Tokens Table (dark / light values)                   */
+/*  DATA: Design Tokens Table                                         */
 /* ------------------------------------------------------------------ */
 const designTokens = [
-    { token: '--color-primary', dark: '#a78bfa', light: '#7c3aed' },
-    { token: '--color-primary-light', dark: '#c4b5fd', light: '#a78bfa' },
-    { token: '--color-primary-dark', dark: '#7c3aed', light: '#6d28d9' },
-    { token: '--color-accent', dark: '#34d399', light: '#059669' },
-    { token: '--color-background', dark: '#0a0a0f', light: '#fafaf9' },
-    { token: '--color-surface', dark: '#141420', light: '#ffffff' },
-    { token: '--color-surface-hover', dark: '#1e1e30', light: '#f5f3ff' },
-    { token: '--color-typography', dark: '#f0eef6', light: '#1c1917' },
-    { token: '--color-typography-muted', dark: '#7a7890', light: '#78716c' },
-    { token: '--color-border', dark: '#2a2a40', light: '#e7e0f0' },
-    { token: '--color-nav-pills-bg', dark: '#1a1a2e', light: '#f0ecf9' },
-    { token: '--color-bg-gray', dark: '#111118', light: '#f5f3ff' },
-    { token: '--color-active-text', dark: '#ffffff', light: '#ffffff' },
-    { token: '--color-secondary', dark: '#0a0a0f', light: '#fafaf9' },
-    { token: '--color-buttons', dark: 'var(--color-primary)', light: 'var(--color-primary)' },
+    { token: '--color-primary', value: '#c8794f' },
+    { token: '--color-primary-light', value: '#e3a17a' },
+    { token: '--color-primary-dark', value: '#9c5532' },
+    { token: '--color-accent', value: '#d9a46c' },
+    { token: '--color-background', value: '#050505' },
+    { token: '--color-surface', value: '#121110' },
+    { token: '--color-surface-hover', value: '#1c1a18' },
+    { token: '--color-typography', value: '#f3eee4' },
+    { token: '--color-typography-muted', value: '#9a9286' },
+    { token: '--color-border', value: '#2a2623' },
+    { token: '--color-nav-pills-bg', value: '#2a2725' },
+    { token: '--color-bg-gray', value: '#0c0b0a' },
+    { token: '--color-active-text', value: '#f3eee4' },
+    { token: '--color-secondary', value: '#050505' },
+    { token: '--color-buttons', value: 'var(--color-primary)' },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -214,16 +215,20 @@ function TypographyScale() {
     return (
         <section>
             <SectionHeading
-                subtitle="Three font families form the typographic hierarchy: Sora for headings, DM Sans for body copy, and Fira Code for code snippets."
+                subtitle="Chubbo for display moments, Cabinet Grotesk for headings, Satoshi for body copy, Bespoke Serif italic for the voice, and JetBrains Mono for labels and code."
             >
                 Typography Scale
             </SectionHeading>
 
             <StaggerContainer className="space-y-0">
                 {typographyScale.map((item) => {
-                    const isCode = item.font === 'Fira Code';
-                    const isHeading = item.font === 'Sora';
-                    const fontClass = isCode ? 'font-mono' : isHeading ? 'font-heading' : 'font-sans';
+                    const isCode = item.tag === 'Code';
+                    const fontClass = {
+                        Chubbo: 'font-display',
+                        'Cabinet Grotesk': 'font-heading',
+                        'Bespoke Serif': 'font-serif',
+                        'JetBrains Mono': 'font-mono',
+                    }[item.font] || 'font-sans';
                     return (
                         <StaggerItem key={item.tag}>
                             <div className="group grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-4 lg:gap-8 py-7 border-b border-borderLight last:border-b-0
@@ -274,7 +279,7 @@ function ComponentShowcase() {
     return (
         <section>
             <SectionHeading
-                subtitle="Interactive component previews demonstrating the core UI building blocks. Each element inherits design tokens for seamless theme switching."
+                subtitle="Interactive component previews demonstrating the core UI building blocks. Each element inherits its colors from the design tokens."
             >
                 Component Showcase
             </SectionHeading>
@@ -290,7 +295,7 @@ function ComponentShowcase() {
                         <motion.button
                             whileHover={{ scale: 1.04, y: -2 }}
                             whileTap={{ scale: 0.96 }}
-                            className="px-7 py-3 rounded-full bg-primary text-white font-semibold text-sm
+                            className="px-7 py-3 rounded-full bg-primary text-ink font-semibold text-sm
                                        shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-shadow duration-300"
                         >
                             Primary
@@ -320,7 +325,7 @@ function ComponentShowcase() {
                         <motion.button
                             whileHover={{ scale: 1.04, y: -2 }}
                             whileTap={{ scale: 0.96 }}
-                            className="px-7 py-3 rounded-full bg-accent text-white font-semibold text-sm
+                            className="px-7 py-3 rounded-full bg-accent text-ink font-semibold text-sm
                                        shadow-lg shadow-accent/25 hover:shadow-accent/40 transition-shadow duration-300"
                         >
                             Accent
@@ -345,7 +350,7 @@ function ComponentShowcase() {
                                        transition-all duration-300
                                        ${loadingBtn
                                     ? 'bg-primary/60 text-white/80 cursor-wait'
-                                    : 'bg-primary text-white shadow-lg shadow-primary/25 hover:shadow-primary/40'
+                                    : 'bg-primary text-ink shadow-lg shadow-primary/25 hover:shadow-primary/40'
                                 }`}
                         >
                             {loadingBtn ? (
@@ -364,13 +369,13 @@ function ComponentShowcase() {
 
                     {/* Button sizes */}
                     <div className="flex flex-wrap gap-4 items-end mt-6">
-                        <button className="px-4 py-1.5 rounded-full bg-primary text-white font-semibold text-xs">
+                        <button className="px-4 py-1.5 rounded-full bg-primary text-ink font-semibold text-xs">
                             Small
                         </button>
-                        <button className="px-7 py-3 rounded-full bg-primary text-white font-semibold text-sm">
+                        <button className="px-7 py-3 rounded-full bg-primary text-ink font-semibold text-sm">
                             Medium
                         </button>
-                        <button className="px-9 py-4 rounded-full bg-primary text-white font-semibold text-base">
+                        <button className="px-9 py-4 rounded-full bg-primary text-ink font-semibold text-base">
                             Large
                         </button>
                     </div>
@@ -540,10 +545,10 @@ function ComponentShowcase() {
                         <span className="px-4 py-1.5 rounded-full text-xs font-semibold bg-surface text-typography-muted border border-borderLight">
                             TypeScript
                         </span>
-                        <span className="px-4 py-1.5 rounded-full text-xs font-semibold bg-primary text-white">
+                        <span className="px-4 py-1.5 rounded-full text-xs font-semibold bg-primary text-ink">
                             Featured
                         </span>
-                        <span className="px-4 py-1.5 rounded-full text-xs font-semibold bg-accent text-white">
+                        <span className="px-4 py-1.5 rounded-full text-xs font-semibold bg-accent text-ink">
                             New
                         </span>
                         <span className="px-4 py-1.5 rounded-full text-xs font-semibold bg-red-500/15 text-red-400 border border-red-500/20">
@@ -572,7 +577,7 @@ function ComponentShowcase() {
                                 key={item}
                                 className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300
                                            ${i === 0
-                                        ? 'bg-primary text-white shadow-md shadow-primary/30'
+                                        ? 'bg-primary text-ink shadow-md shadow-primary/30'
                                         : 'text-typography-muted hover:text-typography hover:bg-surface-hover'
                                     }`}
                             >
@@ -655,7 +660,7 @@ function DesignTokensTable() {
     return (
         <section>
             <SectionHeading
-                subtitle="All design tokens with their resolved values in dark and light themes. Tokens power seamless theme switching via CSS custom properties."
+                subtitle="Every design token and its value. One dark theme, Ember Darkroom: warm ink, cream type and a single amber light, all exposed as CSS custom properties."
             >
                 Design Tokens
             </SectionHeading>
@@ -669,10 +674,7 @@ function DesignTokensTable() {
                                     Token
                                 </th>
                                 <th className="py-4 px-5 text-xs font-heading font-semibold text-typography-muted uppercase tracking-wider border-b border-borderLight">
-                                    Dark Theme
-                                </th>
-                                <th className="py-4 px-5 text-xs font-heading font-semibold text-typography-muted uppercase tracking-wider border-b border-borderLight">
-                                    Light Theme
+                                    Value
                                 </th>
                             </tr>
                         </thead>
@@ -692,18 +694,9 @@ function DesignTokensTable() {
                                         <div className="flex items-center gap-3">
                                             <span
                                                 className="w-5 h-5 rounded-md border border-borderLight flex-shrink-0 shadow-inner"
-                                                style={{ backgroundColor: row.dark.startsWith('var') ? undefined : row.dark }}
+                                                style={{ backgroundColor: row.value.startsWith('var') ? undefined : row.value }}
                                             />
-                                            <code className="text-sm font-mono text-typography-muted">{row.dark}</code>
-                                        </div>
-                                    </td>
-                                    <td className="py-3.5 px-5 border-b border-borderLight">
-                                        <div className="flex items-center gap-3">
-                                            <span
-                                                className="w-5 h-5 rounded-md border border-borderLight flex-shrink-0 shadow-inner"
-                                                style={{ backgroundColor: row.light.startsWith('var') ? undefined : row.light }}
-                                            />
-                                            <code className="text-sm font-mono text-typography-muted">{row.light}</code>
+                                            <code className="text-sm font-mono text-typography-muted">{row.value}</code>
                                         </div>
                                     </td>
                                 </tr>
@@ -723,7 +716,7 @@ function DesignPrinciplesCallout() {
     const principles = [
         {
             title: 'Token-Driven',
-            description: 'Every colour, space, and type decision maps to a CSS custom property, enabling theme switching and a single source of truth between Figma and code.',
+            description: 'Every colour, space, and type decision maps to a CSS custom property, giving a single source of truth between Figma and code.',
             icon: (
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
@@ -819,7 +812,7 @@ export default function DesignSystem() {
                             <span className="text-primary font-semibold"> Figma </span>
                             and
                             <span className="text-accent font-semibold"> code</span>,
-                            ensuring pixel-perfect consistency and seamless theme switching.
+                            ensuring pixel-perfect consistency across every page.
                         </p>
                     </div>
                 </FadeIn>

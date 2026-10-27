@@ -101,8 +101,8 @@ const CustomCursor = () => {
                     style={{
                         transform: `scale(${ringScale})`,
                         opacity: isVisible ? 1 : 0,
-                        borderColor: isHovering ? 'var(--color-primary)' : 'rgba(255,255,255,0.5)',
-                        backgroundColor: isHovering ? 'rgba(167, 139, 250, 0.08)' : 'transparent',
+                        borderColor: isHovering ? 'var(--color-primary)' : 'rgba(243,238,228,0.55)',
+                        backgroundColor: isHovering ? 'rgba(200, 121, 79, 0.12)' : 'transparent',
                     }}
                 />
             </motion.div>
@@ -121,7 +121,7 @@ const CustomCursor = () => {
                 }}
             >
                 <div
-                    className="w-full h-full rounded-full bg-white transition-opacity duration-100"
+                    className="w-full h-full rounded-full bg-cream transition-opacity duration-100"
                     style={{ opacity: isVisible && !isHovering ? 0.7 : 0 }}
                 />
             </motion.div>

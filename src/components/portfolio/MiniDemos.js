@@ -254,7 +254,7 @@ const FlashModernDemo = React.memo(function FlashModernDemo() {
                     transition={{ duration: 0.8, ease: 'easeInOut' }}
                     className="absolute inset-y-0 right-0 flex items-center justify-end pr-3"
                     style={{
-                        background: 'linear-gradient(135deg, rgba(167,139,250,0.25) 0%, rgba(52,211,153,0.15) 100%)',
+                        background: 'linear-gradient(135deg, rgba(200,121,79,0.25) 0%, rgba(217,164,108,0.15) 100%)',
                         borderLeft: '2px solid var(--color-primary)',
                     }}
                 >
@@ -327,7 +327,7 @@ const PandemicCommDemo = React.memo(function PandemicCommDemo() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         className="absolute inset-0 flex items-center justify-center"
-                        style={{ background: 'rgba(52,211,153,0.1)' }}
+                        style={{ background: 'rgba(217,164,108,0.1)' }}
                     >
                         <span className="text-xs font-semibold" style={{ color: 'var(--color-accent)' }}>
                             Sent! ✓
@@ -351,13 +351,13 @@ const ResortBookingDemo = React.memo(function ResortBookingDemo() {
     ];
     const sequence = [1, 3, 5, 2, 4, 6];
     const [selected, setSelected] = useState(1);
-    const [primaryColor, setPrimaryColor] = useState('#a78bfa');
+    const [primaryColor, setPrimaryColor] = useState('#c8794f');
     const [surfaceHover, setSurfaceHover] = useState('#1e1e30');
     const [borderColor, setBorderColor] = useState('#2a2a40');
 
     useEffect(() => {
         // Resolve CSS vars for SVG compatibility in Safari
-        setPrimaryColor(getCSSVar('--color-primary') || '#a78bfa');
+        setPrimaryColor(getCSSVar('--color-primary') || '#c8794f');
         setSurfaceHover(getCSSVar('--color-surface-hover') || '#1e1e30');
         setBorderColor(getCSSVar('--color-border') || '#2a2a40');
     }, []);
@@ -1080,8 +1080,8 @@ const VibeRefactorDemo = React.memo(function VibeRefactorDemo() {
     const phases = [
         { label: 'Vibe Code', quality: 35, color: '#ef4444' },
         { label: 'Audit', quality: 55, color: '#f59e0b' },
-        { label: 'Refactor', quality: 80, color: '#a78bfa' },
-        { label: 'Production', quality: 98, color: '#34d399' },
+        { label: 'Refactor', quality: 80, color: '#c8794f' },
+        { label: 'Production', quality: 98, color: '#d9a46c' },
     ];
 
     useEffect(() => {

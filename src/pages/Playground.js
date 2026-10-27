@@ -63,14 +63,14 @@ function SliderControl({ label, value, onChange, min, max, step, unit = '' }) {
                     width: 16px; height: 16px; border-radius: 50%;
                     background: var(--color-primary);
                     border: 2px solid var(--color-surface);
-                    box-shadow: 0 0 8px rgba(167,139,250,0.4);
+                    box-shadow: 0 0 8px rgba(200,121,79,0.4);
                     cursor: pointer;
                 }
                 .slider-thumb::-moz-range-thumb {
                     width: 16px; height: 16px; border-radius: 50%;
                     background: var(--color-primary);
                     border: 2px solid var(--color-surface);
-                    box-shadow: 0 0 8px rgba(167,139,250,0.4);
+                    box-shadow: 0 0 8px rgba(200,121,79,0.4);
                     cursor: pointer;
                 }
             `}</style>
@@ -91,7 +91,7 @@ function OptionGroup({ label, options, value, onChange }) {
                         onClick={() => onChange(opt)}
                         className={`px-4 py-2 rounded-lg text-sm font-medium capitalize transition-all duration-200 select-none ${
                             value === opt
-                                ? 'bg-primary text-white shadow-lg shadow-primary/25'
+                                ? 'bg-primary text-ink shadow-lg shadow-primary/25'
                                 : 'bg-surface-hover text-typography-muted hover:text-typography'
                         }`}
                     >
@@ -268,7 +268,7 @@ function AnimationPlayground() {
                                         onClick={() => setAnimType(t)}
                                         className={`px-4 py-2 rounded-lg text-sm font-medium capitalize transition-all duration-200 select-none ${
                                             animType === t
-                                                ? 'bg-primary text-white shadow-lg shadow-primary/25'
+                                                ? 'bg-primary text-ink shadow-lg shadow-primary/25'
                                                 : 'bg-surface-hover text-typography-muted hover:text-typography'
                                         }`}
                                     >
@@ -358,7 +358,7 @@ function AnimationPlayground() {
                                 style={{
                                     background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
                                     boxShadow:
-                                        '0 8px 32px rgba(167, 139, 250, 0.3), 0 0 60px rgba(52, 211, 153, 0.15)',
+                                        '0 8px 32px rgba(200, 121, 79, 0.3), 0 0 60px rgba(217, 164, 108, 0.15)',
                                 }}
                                 whileHover={{ scale: 1.08 }}
                                 whileTap={{ scale: 0.94 }}
@@ -477,7 +477,7 @@ function ElasticCard() {
                     className="absolute inset-0 opacity-40"
                     style={{
                         background:
-                            'radial-gradient(circle at 30% 30%, rgba(167,139,250,0.4), transparent 70%)',
+                            'radial-gradient(circle at 30% 30%, rgba(200,121,79,0.4), transparent 70%)',
                     }}
                 />
                 <span className="relative text-xs font-semibold text-typography tracking-wide">
@@ -508,8 +508,8 @@ function MorphingShape() {
                     ? 'linear-gradient(135deg, var(--color-accent), var(--color-primary))'
                     : 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
                 boxShadow: isHovered
-                    ? '0 0 40px rgba(52,211,153,0.35)'
-                    : '0 0 20px rgba(167,139,250,0.2)',
+                    ? '0 0 40px rgba(217,164,108,0.35)'
+                    : '0 0 20px rgba(200,121,79,0.2)',
             }}
         />
     );
@@ -530,7 +530,7 @@ function GlowTrail() {
     };
 
     const bgGlow = useTransform([glowX, glowY], ([px, py]) => {
-        return `radial-gradient(180px circle at ${px}px ${py}px, rgba(167,139,250,0.25), rgba(52,211,153,0.1) 40%, transparent 70%)`;
+        return `radial-gradient(180px circle at ${px}px ${py}px, rgba(200,121,79,0.25), rgba(217,164,108,0.1) 40%, transparent 70%)`;
     });
 
     return (
@@ -714,11 +714,11 @@ function ComponentCustomizer() {
     const getVariantClasses = () => {
         switch (variant) {
             case 'outline':
-                return 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white';
+                return 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-ink';
             case 'ghost':
                 return 'bg-transparent text-primary hover:bg-primary/10';
             default:
-                return 'bg-primary text-white hover:bg-primary-dark shadow-lg shadow-primary/20';
+                return 'bg-primary text-ink hover:bg-primary-dark shadow-lg shadow-primary/20';
         }
     };
 
@@ -730,9 +730,9 @@ function ComponentCustomizer() {
         };
         const variantMap = {
             primary:
-                'bg-primary text-white\n    hover:bg-primary-dark shadow-lg shadow-primary/20',
+                'bg-primary text-ink\n    hover:bg-primary-dark shadow-lg shadow-primary/20',
             outline:
-                'bg-transparent border-2 border-primary\n    text-primary hover:bg-primary hover:text-white',
+                'bg-transparent border-2 border-primary\n    text-primary hover:bg-primary hover:text-ink',
             ghost: 'bg-transparent text-primary\n    hover:bg-primary/10',
         };
 

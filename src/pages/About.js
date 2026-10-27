@@ -100,8 +100,8 @@ const skillCategories = [
 ];
 
 const levelColors = {
-    expert: 'bg-primary text-white',
-    advanced: 'bg-accent text-white',
+    expert: 'bg-primary text-ink',
+    advanced: 'bg-accent text-ink',
     intermediate: 'bg-navPillsBg text-typography',
 };
 
@@ -272,7 +272,7 @@ export default function About() {
                                 {careerHistory.map((history, index) => (
                                     <FadeIn key={index} delay={index * 0.08}>
                                         <li className="relative pr-4 sm:pr-10 pl-12 sm:pl-16 mb-12 sm:mb-16 after:absolute after:top-0 after:left-4 sm:after:left-5 after:bg-borderLight after:w-[1px] after:h-full">
-                                            <div className="bg-primary w-8 h-8 sm:w-10 sm:h-10 absolute left-0 leading-40 text-center z-10 rounded-full text-white flex items-center justify-center">
+                                            <div className="bg-primary w-8 h-8 sm:w-10 sm:h-10 absolute left-0 leading-40 text-center z-10 rounded-full text-ink flex items-center justify-center">
                                                 <FontAwesomeIcon
                                                     icon={index === careerHistory.length - 1 ? faGraduationCap : faBriefcase}
                                                     size="sm"

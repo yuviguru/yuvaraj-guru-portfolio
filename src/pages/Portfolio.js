@@ -11,6 +11,7 @@ import FadeIn from '../components/motion/FadeIn';
 import ProjectCard from '../components/portfolio/ProjectCard';
 import ProjectDetailModal from '../components/portfolio/ProjectDetailModal';
 import { allProjects } from '../data/projects';
+import resumePdf from '../assets/Yuvaraj_Guru_CV.pdf';
 
 const PAGE_PROPS = {
     title: 'My',
@@ -70,7 +71,7 @@ export default function Portfolio() {
                             </div>
                             <Link
                                 to="/contact"
-                                className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-white rounded-lg text-sm font-medium hover:bg-accent/90 transition-colors flex-shrink-0"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-ink rounded-lg text-sm font-medium hover:bg-accent/90 transition-colors flex-shrink-0"
                             >
                                 Get in Touch
                                 <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
@@ -110,7 +111,7 @@ export default function Portfolio() {
                                         onClick={() => setSelectedCategory(category)}
                                         className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                                             isActive
-                                                ? 'bg-primary text-white shadow-lg shadow-primary/25'
+                                                ? 'bg-primary text-ink shadow-lg shadow-primary/25'
                                                 : 'bg-surface text-typography border border-borderLight hover:border-primary/40'
                                         }`}
                                     >
@@ -160,7 +161,7 @@ export default function Portfolio() {
                                 <p className="text-typography text-lg mb-4">No projects in this category yet.</p>
                                 <button
                                     onClick={() => setSelectedCategory('All')}
-                                    className="px-6 py-2 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors"
+                                    className="px-6 py-2 bg-primary text-ink rounded-full hover:bg-primary-dark transition-colors"
                                 >
                                     Show All Projects
                                 </button>
@@ -181,13 +182,13 @@ export default function Portfolio() {
                             <div className="flex flex-wrap justify-center gap-3">
                                 <Link
                                     to="/contact"
-                                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors"
+                                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-ink rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors"
                                 >
                                     <FontAwesomeIcon icon={faEnvelope} />
                                     Get in Touch
                                 </Link>
                                 <a
-                                    href="/Yuvaraj_Guru_CV.pdf"
+                                    href={resumePdf}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 px-6 py-3 bg-surface-hover text-typography border border-borderLight rounded-xl text-sm font-medium hover:border-primary/40 transition-colors"

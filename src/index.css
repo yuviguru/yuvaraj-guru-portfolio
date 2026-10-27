@@ -3,30 +3,42 @@
 @tailwind utilities;
 
 @layer base {
-  /* Default theme variables (dark theme as default) */
+  /* "Ember Darkroom" tokens: one dark theme, lit by a single amber light */
   html {
-    --color-primary: #a78bfa;
-    --color-primary-light: #c4b5fd;
-    --color-primary-dark: #7c3aed;
-    --color-accent: #34d399;
-    --color-secondary: #0a0a0f;
+    --color-primary: #c8794f;
+    --color-primary-light: #e3a17a;
+    --color-primary-dark: #9c5532;
+    --color-accent: #d9a46c;
+    --color-secondary: #050505;
     --color-buttons: var(--color-primary);
     --color-bg-opacity: 1;
-    --color-background: #0a0a0f;
-    --color-surface: #141420;
-    --color-surface-hover: #1e1e30;
-    --color-border: #2a2a40;
-    --color-typography: #f0eef6;
-    --color-typography-muted: #7a7890;
-    --color-active-text: #ffffff;
-    --color-nav-pills-bg: #1a1a2e;
-    --color-bg-gray: #111118;
-    scroll-behavior: smooth;
+    --color-background: #050505;
+    --color-surface: #121110;
+    --color-surface-hover: #1c1a18;
+    --color-border: #2a2623;
+    --color-typography: #f3eee4;
+    --color-typography-muted: #9a9286;
+    --color-active-text: #f3eee4;
+    --color-nav-pills-bg: #2a2725;
+    --color-bg-gray: #0c0b0a;
+    /* Same colors as RGB channels, so Tailwind opacity modifiers (bg-primary/10) work */
+    --color-primary-rgb: 200 121 79;
+    --color-primary-light-rgb: 227 161 122;
+    --color-primary-dark-rgb: 156 85 50;
+    --color-accent-rgb: 217 164 108;
+    --color-secondary-rgb: 5 5 5;
+    --color-background-rgb: 5 5 5;
+    --color-surface-rgb: 18 17 16;
+    --color-surface-hover-rgb: 28 26 24;
+    --color-border-rgb: 42 38 35;
+    --color-typography-rgb: 243 238 228;
+    --color-typography-muted-rgb: 154 146 134;
+    --color-active-text-rgb: 243 238 228;
+    --color-nav-pills-bg-rgb: 42 39 37;
+    --color-bg-gray-rgb: 12 11 10;
+    color-scheme: dark;
+    background: #050505;
   }
-
-  /* Import theme-specific overrides */
-  @import "styles/themes/dark.css";
-  @import "styles/themes/light.css";
 }
 
 @layer utilities {
@@ -36,35 +48,102 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* Ribbed (fluted) glass: repeating cylinders of light and shadow */
+  .fluted {
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.55) 0px,
+      rgba(255, 255, 255, 0.05) 9px,
+      rgba(255, 255, 255, 0.11) 15px,
+      rgba(255, 255, 255, 0.03) 22px,
+      rgba(0, 0, 0, 0.6) 36px
+    );
+  }
+
+  /* Same ribs, as a mask, so a light source only shows through the glass */
+  .fluted-mask {
+    -webkit-mask-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.15) 0px, #000 12px, #000 18px, rgba(0, 0, 0, 0.15) 36px);
+    mask-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.15) 0px, #000 12px, #000 18px, rgba(0, 0, 0, 0.15) 36px);
+  }
+
+  /* RGB split, like a misregistered print */
+  .text-chroma {
+    text-shadow:
+      calc(var(--chroma, 4px) * -1) 0 0 rgba(255, 32, 64, 0.9),
+      var(--chroma, 4px) 0 0 rgba(0, 220, 255, 0.9);
+  }
+
+  .chamfer {
+    clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
-html, body {
-  overflow-x: hidden;
+html,
+body {
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
-  font-family: 'DM Sans', system-ui, sans-serif;
+  background: #050505;
+  color: #f3eee4;
+  font-family: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.01em;
+  text-rendering: optimizeLegibility;
 }
 
 code {
-  font-family: 'Fira Code', Consolas, 'Courier New', monospace;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-/* Scrollbar styling */
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Film grain, shared by the whole site */
+.grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-background);
+  background: #050505;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: #2a2623;
   border-radius: 3px;
 }
 
@@ -72,10 +151,9 @@ code {
   background: var(--color-primary);
 }
 
-/* Selection styling */
 ::selection {
   background: var(--color-primary);
-  color: white;
+  color: #050505;
 }
 
 /* Custom cursor - hide default on non-touch devices */
@@ -85,7 +163,6 @@ code {
   }
 }
 
-/* Focus-visible accessibility styles */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -93,11 +170,10 @@ textarea:focus-visible,
 select:focus-visible,
 [role="button"]:focus-visible {
   outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
+  outline-offset: 3px;
   border-radius: 4px;
 }
 
-/* Skip to content (screen reader accessible) */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -110,7 +186,6 @@ select:focus-visible,
   border-width: 0;
 }
 
-/* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

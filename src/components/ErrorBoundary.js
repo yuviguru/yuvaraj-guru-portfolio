@@ -54,7 +54,7 @@ class ErrorBoundary extends React.Component {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                             <button
                                 onClick={this.handleReload}
-                                className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors duration-200"
+                                className="inline-flex items-center px-6 py-3 bg-primary text-ink rounded-lg font-medium hover:bg-primary/90 transition-colors duration-200"
                             >
                                 <FontAwesomeIcon icon={faRefresh} className="mr-2" />
                                 Reload Page
